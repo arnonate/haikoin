@@ -5,7 +5,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:contracts": "npx hardhat test",
+    "deploy:node:localhost": "npx hardhat node",
+    "deploy:contracts:localhost": "npx hardhat run scripts/deploy.js --network localhost"
   },
   "dependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.3",
@@ -21,11 +24,11 @@
     "next": "12.0.7",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
     "styled-components": "^5.3.3",
     "web3modal": "^1.9.4"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "^2.0.2",
     "eslint": "8.4.1",
     "eslint-config-next": "12.0.7"
   }

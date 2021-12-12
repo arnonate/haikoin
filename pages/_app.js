@@ -1,33 +1,30 @@
 import Link from "next/link";
 import Image from "next/image";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { useRouter } from "next/router";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
+import { FaBolt, FaCoins, FaHome, FaMagic } from "react-icons/fa";
 
-const theme = {
-  colors: {
-    ui: {
-      default: `#1B0F30`,
-      hightlight: `#7126BC`,
-    },
-    text: {
-      default: `#FFFFFF`,
-      link: `#DA26DE`,
-    },
-  },
-};
+import { Theme, Routes } from "../utils";
 
 const GlobalStyle = createGlobalStyle`
   html,
   body {
-    background-color: ${theme.colors.ui.default};
-    color: ${theme.colors.text.default};
     padding: 0;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  }
+
+  body {
+    background-color: ${Theme.colors.ui.default};
+    color: ${Theme.colors.text.default};
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-weight: ${Theme.font.weight.default};
+    line-height: ${Theme.lineHeight.default};
+    min-height: 100vh;
   }
 
   a {
-    color: ${theme.colors.text.link};
+    color: ${Theme.colors.text.link};
     text-decoration: none;
   }
 
@@ -38,42 +35,94 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+`;
+
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  max-width: ${(props) => props.theme.dimensions.wide};
+  padding: ${(props) => props.theme.rhythm};
+  width: 100%;
 
   .logo {
     width: 300px;
   }
+
+  .nav {
+    a {
+      align-items: center;
+      display: inline-flex;
+      font-weight: ${(props) => props.theme.font.weight.bold};
+
+      &.active {
+        border-bottom: 3px solid;
+      }
+
+      span {
+        padding-left: 5px;
+      }
+    }
+
+    & > * + * {
+      margin-left: 1.5rem;
+    }
+  }
 `;
 
 function Haikoin({ Component, pageProps }) {
+  const router = useRouter();
+
+  console.log(router.asPath);
+
   return (
     <>
-      <div className="logo">
-        <Image
-          alt="Haikoin Haiku NFT Marketplace"
-          src="/logo.png"
-          width={1200}
-          height={150}
-          priority
-        />
-      </div>
-
-      <nav>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
-        <Link href="/create-item">
-          <a>Sell Digital Asset</a>
-        </Link>
-        <Link href="/my-assets">
-          <a>My Digital Assets</a>
-        </Link>
-        <Link href="/creator-dashboard">
-          <a>Creator Dashboard</a>
-        </Link>
-      </nav>
-
       <GlobalStyle />
-      <ThemeProvider theme={theme}>
+
+      <ThemeProvider theme={Theme}>
+        <Header>
+          <div className="logo">
+            <Link href={Routes.home}>
+              <a>
+                <Image
+                  alt="Haikoin Haiku NFT Marketplace"
+                  src="/logo.png"
+                  width={1200}
+                  height={150}
+                  priority
+                />
+              </a>
+            </Link>
+          </div>
+
+          <nav className="nav">
+            <Link href={Routes.home}>
+              <a className={router.asPath === Routes.home ? "active" : ""}>
+                <FaHome />
+                <span>Home</span>
+              </a>
+            </Link>
+            <Link href={Routes.create}>
+              <a className={router.asPath === Routes.create ? "active" : ""}>
+                <FaMagic />
+                <span>Create</span>
+              </a>
+            </Link>
+            <Link href={Routes.mine}>
+              <a className={router.asPath === Routes.mine ? "active" : ""}>
+                <FaCoins />
+                <span>My Haikoins</span>
+              </a>
+            </Link>
+            <Link href={Routes.dashboard}>
+              <a className={router.asPath === Routes.dashboard ? "active" : ""}>
+                <FaBolt />
+                <span>Dashboard</span>
+              </a>
+            </Link>
+          </nav>
+        </Header>
+
         <Component {...pageProps} />
       </ThemeProvider>
     </>
