@@ -93,7 +93,6 @@ export default function Home() {
       <Head>
         <title>{Config.siteTitle}</title>
         <meta name="description" content={Config.siteDescription} />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Main>

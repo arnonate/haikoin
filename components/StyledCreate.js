@@ -41,9 +41,15 @@ const CreateContainer = styled.div`
       border: 0;
       border-radius: ${(props) => props.theme.borderRadius.default};
       color: ${(props) => props.theme.colors.text.white};
+      font-family: ${(props) => props.theme.font.family};
       font-size: 16px;
       padding: ${(props) => props.theme.rhythm};
       min-width: 100%;
+
+      ::placeholder {
+        color: ${(props) => props.theme.colors.text.default};
+        opacity: 0.3;
+      }
     }
 
     .fields {
@@ -97,6 +103,12 @@ const CreateContainer = styled.div`
           }
         }
       }
+
+      .mintButton {
+        align-self: flex-end;
+        display: flex;
+        justify-content: flex-end;
+      }
     }
   }
 
@@ -132,6 +144,16 @@ const CreateGlobalStyles = createGlobalStyle`
           background-color: rgba(255,255,255,0.1)
         }
       }
+    }
+  }
+
+  .colorPicker {
+    text-align: right;
+
+    svg {
+      cursor: pointer;
+      height: ${(props) => props.theme.font.size.lg};
+      width: ${(props) => props.theme.font.size.lg};
     }
   }
 

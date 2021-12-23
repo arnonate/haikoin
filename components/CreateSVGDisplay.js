@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import { Theme } from "../utils";
 
 const getFontWeight = (weight) => {
@@ -66,4 +68,4 @@ const CreateSVGDisplay = ({
   </div>
 );
 
-export default CreateSVGDisplay;
+export default memo(CreateSVGDisplay);

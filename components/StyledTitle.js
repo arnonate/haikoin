@@ -4,7 +4,7 @@ const StyledTitle = styled.div`
   background-color: ${(props) => props.theme.colors.ui.transparent};
   border: 0;
   border-radius: ${(props) => props.theme.borderRadius.default};
-  margin-bottom: ${(props) => `calc(${props.theme.rhythm}*2)`};
+  margin-bottom: ${(props) => `calc(${props.theme.rhythm}*3)`};
   padding: ${(props) => `calc(${props.theme.rhythm}/2) ${props.theme.rhythm}`};
   min-width: 100%;
 

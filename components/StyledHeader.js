@@ -7,7 +7,9 @@ const StyledHeader = styled(StyledContainer)`
   display: flex;
   justify-content: space-between;
   line-height: 1;
-  padding: ${(props) => props.theme.rhythm};
+  margin-bottom: ${(props) => props.theme.rhythm};
+  padding: ${(props) =>
+    `calc(${props.theme.rhythm}*3) ${props.theme.rhythm} ${props.theme.rhythm}`};
 
   .logo {
     width: 300px;

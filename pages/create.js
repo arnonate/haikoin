@@ -2,53 +2,43 @@ import { ethers } from "ethers";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useEFfect, useState } from "react";
 import { syllable } from "syllable";
 import Web3Modal from "web3modal";
-import * as ReactPopover from "@radix-ui/react-popover";
-import { HexColorPicker } from "react-colorful";
-import { CaretDownIcon, MagicWandIcon } from "@radix-ui/react-icons";
+import { MagicWandIcon } from "@radix-ui/react-icons";
 
 import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
 import Market from "../artifacts/contracts/Market.sol/NFTMarket.json";
 
-import { Config, Fonts } from "../utils";
+import { Config, Fonts, Theme } from "../utils";
 import {
-  Button,
+  CreateForm,
   CreateSVGDisplay,
   StyledContainer,
   StyledCreate,
   StyledTitle,
 } from "../components";
 import CreateContainer from "../components/StyledCreate";
+import useDebouncy from "use-debouncy/lib/effect";
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null);
   const [formData, setFormData] = useState({
-    backgroundColor: "#000000",
+    backgroundColor: Theme.colors.ui.dark,
     description: "",
     firstLine: "",
-    fontFamily: "Work Sans",
+    fontFamily: "Hahmlet",
     fontWeight: "Regular",
     name: "",
     price: "",
     secondLine: "",
-    textColor: "#FFFFFF",
+    textColor: Theme.colors.text.default,
     thirdLine: "",
   });
-  const [fontPickerOpen, setFontPickerOpen] = useState(false);
-  const [weightPickerOpen, setWeightPickerOpen] = useState(false);
 
   const router = useRouter();
-
-  const handleInputChange = (event) => {
-    setFormData((state) => ({
-      ...state,
-      [event.target.name]: event.target.value,
-    }));
-  };
 
   // async function onChange(e) {
   //   const file = e.target.files[0];
@@ -125,7 +115,8 @@ export default function CreateItem() {
       <CreateContainer.GlobalStyles />
 
       <Head>
-        <title>Create</title>
+        <title>Create | {Config.siteTitle}</title>
+
         {Fonts.map((font) => (
           <link
             key={font}
@@ -147,184 +138,7 @@ export default function CreateItem() {
       </StyledTitle>
 
       <StyledCreate>
-        <form className="form">
-          <label htmlFor="firstLine">
-            First Line{" "}
-            <span>{syllable(formData.firstLine)} of 5 syllables</span>
-          </label>
-          <input
-            id="firstLine"
-            name="firstLine"
-            placeholder="First line of Haikoin"
-            onChange={handleInputChange}
-          />
-
-          <label htmlFor="secondLine">
-            Second Line{" "}
-            <span>{syllable(formData.secondLine)} of 7 syllables</span>
-          </label>
-          <input
-            id="secondLine"
-            name="secondLine"
-            placeholder="Second line of the Haikoin"
-            onChange={handleInputChange}
-          />
-
-          <label htmlFor="thridLine">
-            Third Line{" "}
-            <span>{syllable(formData.thirdLine)} of 5 syllables</span>
-          </label>
-          <input
-            id="thirdLine"
-            name="thirdLine"
-            placeholder="Third line of Haikoin"
-            onChange={handleInputChange}
-          />
-
-          <label htmlFor="name">Name of your Haikoin</label>
-          <input
-            id="name"
-            name="name"
-            placeholder="Name"
-            onChange={handleInputChange}
-          />
-
-          <label htmlFor="description">Description of your Haikoin</label>
-          <textarea
-            id="description"
-            name="description"
-            placeholder="Description"
-            onChange={handleInputChange}
-          />
-
-          <div className="fields">
-            <div className="control">
-              <label>Font Family:</label>
-              <ReactPopover.Root
-                open={fontPickerOpen}
-                onOpenChange={(open) => setFontPickerOpen(open)}
-              >
-                <ReactPopover.Trigger>
-                  <div className="select">
-                    {formData.fontFamily}
-                    <CaretDownIcon />
-                  </div>
-                </ReactPopover.Trigger>
-                <ReactPopover.Content>
-                  <div className="list">
-                    <ul
-                      onMouseUp={(event) => {
-                        setFormData((state) => ({
-                          ...state,
-                          fontFamily: event.target.innerText,
-                        }));
-                        setFontPickerOpen(false);
-                      }}
-                    >
-                      {Fonts.map((font) => (
-                        <li key={font}>{font}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </ReactPopover.Content>
-              </ReactPopover.Root>
-            </div>
-
-            <div className="control">
-              <label>Font Weight:</label>
-              <ReactPopover.Root
-                open={weightPickerOpen}
-                onOpenChange={(open) => setWeightPickerOpen(open)}
-              >
-                <ReactPopover.Trigger>
-                  <div className="select">
-                    {formData.fontWeight}
-                    <CaretDownIcon />
-                  </div>
-                </ReactPopover.Trigger>
-                <ReactPopover.Content>
-                  <div className="list">
-                    <ul
-                      onMouseUp={(event) => {
-                        setFormData((state) => ({
-                          ...state,
-                          fontWeight: event.target.innerText,
-                        }));
-                        setWeightPickerOpen(false);
-                      }}
-                    >
-                      {["Light", "Regular", "Bold"].map((weight) => (
-                        <li key={weight}>{weight}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </ReactPopover.Content>
-              </ReactPopover.Root>
-            </div>
-
-            <div className="control">
-              <label>Background Color:</label>
-              <ReactPopover.Root>
-                <ReactPopover.Trigger>
-                  <div
-                    className="color"
-                    style={{ backgroundColor: formData.backgroundColor }}
-                  />
-                </ReactPopover.Trigger>
-                <ReactPopover.Content>
-                  <HexColorPicker
-                    color={formData.backgroundColor}
-                    onChange={(color) =>
-                      setFormData((state) => ({
-                        ...state,
-                        backgroundColor: color,
-                      }))
-                    }
-                  />
-                </ReactPopover.Content>
-              </ReactPopover.Root>
-            </div>
-
-            <div className="control">
-              <label>Text Color:</label>
-              <ReactPopover.Root>
-                <ReactPopover.Trigger>
-                  <div
-                    className="color"
-                    style={{ backgroundColor: formData.textColor }}
-                  />
-                </ReactPopover.Trigger>
-                <ReactPopover.Content>
-                  <HexColorPicker
-                    color={formData.textColor}
-                    onChange={(color) =>
-                      setFormData((state) => ({
-                        ...state,
-                        textColor: color,
-                      }))
-                    }
-                  />
-                </ReactPopover.Content>
-              </ReactPopover.Root>
-            </div>
-          </div>
-
-          <div className="fields">
-            <div>
-              <label htmlFor="price">Selling price (in Eth)</label>
-              <input
-                id="price"
-                name="price"
-                placeholder=".025"
-                type="number"
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <Button onClick={createNFT}>Create Digital Asset</Button>
-          </div>
-        </form>
-
+        <CreateForm formData={formData} setFormData={setFormData} />
         <CreateSVGDisplay {...formData} />
       </StyledCreate>
     </StyledContainer>
