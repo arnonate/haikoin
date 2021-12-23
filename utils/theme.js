@@ -1,33 +1,47 @@
+const base = `15`;
+
 const theme = {
+  borderRadius: {
+    small: `4px`,
+    default: `8px`,
+    large: `16px`,
+  },
   colors: {
     ui: {
       default: `#120A20`,
-      hightlight: `#7126BC`,
+      highlight: `#7126BC`,
+      transparent: `rgba(0, 0, 0, 0.6)`,
     },
     text: {
-      default: `#FFFFFF`,
+      default: `#8f75bd`,
+      highlight: `#7126BC`,
       link: `#DA26DE`,
+      white: `#FFFFFF`,
     },
   },
   dimensions: {
     wide: `1650px`,
   },
   font: {
+    family: `'Work Sans', sans-serif`,
     size: {
-      default: `18px`,
-      large: `29.124px`,
+      sm: base * 0.618 + "px", // Based off golden ratio 1.618
+      md: base + "px",
+      lg: base * 1.618 + "px",
+      xl: base * 1.618 * 2 + "px",
     },
     weight: {
-      default: `400`,
-      narrow: `300`,
+      medium: `500`,
+      light: `300`,
       bold: `700`,
     },
   },
   lineHeight: {
-    default: `29.124px`,
-    large: `58.248px`,
+    md: base * 1.618 + "px",
+    lg: base * 1.618 * 2 + "px",
+    xl: base * 1.618 * 3 + "px",
   },
-  rhythm: `29.124px`,
+  rhythm: base * 1.618 + "px",
 };
 
 export default theme;

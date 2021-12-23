@@ -14,7 +14,10 @@
     "@nomiclabs/hardhat-ethers": "^2.0.3",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@openzeppelin/contracts": "^4.4.0",
+    "@radix-ui/react-icons": "^1.0.3",
+    "@radix-ui/react-popover": "^0.1.4",
     "axios": "^0.24.0",
+    "bad-words": "^3.0.4",
     "chai": "^4.3.4",
     "dotenv": "^10.0.0",
     "ethereum-waffle": "^3.4.0",
@@ -23,9 +26,10 @@
     "ipfs-http-client": "50.1.2",
     "next": "12.0.7",
     "react": "17.0.2",
+    "react-colorful": "^5.5.1",
     "react-dom": "17.0.2",
-    "react-icons": "^4.3.1",
     "styled-components": "^5.3.3",
+    "syllable": "^5.0.0",
     "web3modal": "^1.9.4"
   },
   "devDependencies": {

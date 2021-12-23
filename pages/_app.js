@@ -1,10 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
-import { FaBolt, FaCoins, FaHome, FaMagic } from "react-icons/fa";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import {
+  LightningBoltIcon,
+  HomeIcon,
+  MagicWandIcon,
+  StackIcon,
+} from "@radix-ui/react-icons";
 
 import { Theme, Routes } from "../utils";
+import { StyledHeader } from "../components";
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -16,10 +22,10 @@ const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${Theme.colors.ui.default};
     color: ${Theme.colors.text.default};
-    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    font-weight: ${Theme.font.weight.default};
-    line-height: ${Theme.lineHeight.default};
+    font-family: ${Theme.font.family};
+    font-size: ${Theme.font.size.md};
+    font-weight: ${Theme.font.weight.medium};
+    line-height: ${Theme.lineHeight.md};
     min-height: 100vh;
   }
 
@@ -32,41 +38,15 @@ const GlobalStyle = createGlobalStyle`
     height: auto;
   }
 
+  button {
+    border: 0;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+  }
+
   * {
     box-sizing: border-box;
-  }
-`;
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  margin: auto;
-  max-width: ${(props) => props.theme.dimensions.wide};
-  padding: ${(props) => props.theme.rhythm};
-  width: 100%;
-
-  .logo {
-    width: 300px;
-  }
-
-  .nav {
-    a {
-      align-items: center;
-      display: inline-flex;
-      font-weight: ${(props) => props.theme.font.weight.bold};
-
-      &.active {
-        border-bottom: 3px solid;
-      }
-
-      span {
-        padding-left: 5px;
-      }
-    }
-
-    & > * + * {
-      margin-left: 1.5rem;
-    }
   }
 `;
 
@@ -80,7 +60,7 @@ function Haikoin({ Component, pageProps }) {
       <GlobalStyle />
 
       <ThemeProvider theme={Theme}>
-        <Header>
+        <StyledHeader>
           <div className="logo">
             <Link href={Routes.home}>
               <a>
@@ -98,32 +78,30 @@ function Haikoin({ Component, pageProps }) {
           <nav className="nav">
             <Link href={Routes.home}>
               <a className={router.asPath === Routes.home ? "active" : ""}>
-                <FaHome />
-                <span>Home</span>
+                <HomeIcon /> Home
               </a>
             </Link>
             <Link href={Routes.create}>
               <a className={router.asPath === Routes.create ? "active" : ""}>
-                <FaMagic />
-                <span>Create</span>
+                <MagicWandIcon /> Create
               </a>
             </Link>
             <Link href={Routes.mine}>
               <a className={router.asPath === Routes.mine ? "active" : ""}>
-                <FaCoins />
-                <span>My Haikoins</span>
+                <StackIcon /> My Haikoins
               </a>
             </Link>
             <Link href={Routes.dashboard}>
               <a className={router.asPath === Routes.dashboard ? "active" : ""}>
-                <FaBolt />
-                <span>Dashboard</span>
+                <LightningBoltIcon /> Explore
               </a>
             </Link>
           </nav>
-        </Header>
+        </StyledHeader>
 
         <Component {...pageProps} />
+
+        <footer>Footer text</footer>
       </ThemeProvider>
     </>
   );

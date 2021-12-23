@@ -9,7 +9,7 @@ import Web3Modal from "web3modal";
 import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
 import Market from "../artifacts/contracts/Market.sol/NFTMarket.json";
 
-import { nftaddress, nftmarketaddress } from "../config";
+import { Config } from "../utils";
 
 const Main = styled.main`
   color: ${({ theme }) => theme.colors.text.primary};
@@ -27,9 +27,13 @@ export default function Home() {
   async function loadNFTs() {
     /* create a generic provider and query for unsold market items */
     const provider = new ethers.providers.JsonRpcProvider();
-    const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
+    const tokenContract = new ethers.Contract(
+      Config.nftaddress,
+      NFT.abi,
+      provider
+    );
     const marketContract = new ethers.Contract(
-      nftmarketaddress,
+      Config.nftmarketaddress,
       Market.abi,
       provider
     );
@@ -87,11 +91,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Haikoin</title>
-        <meta
-          name="description"
-          content="Haikoin! Design and mint haikus into NFTs and sell on our marketplace!"
-        />
+        <title>{Config.siteTitle}</title>
+        <meta name="description" content={Config.siteDescription} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -122,19 +123,6 @@ export default function Home() {
           </div>
         ))}
       </Main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <span>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </>
   );
 }
