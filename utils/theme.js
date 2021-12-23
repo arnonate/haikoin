@@ -8,6 +8,7 @@ const theme = {
   },
   colors: {
     ui: {
+      dark: `#07040d`,
       default: `#120A20`,
       highlight: `#7126BC`,
       transparent: `rgba(0, 0, 0, 0.6)`,

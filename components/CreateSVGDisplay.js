@@ -13,7 +13,15 @@ const getFontWeight = (weight) => {
   }
 };
 
-const CreateSVGDisplay = ({ formData }) => (
+const CreateSVGDisplay = ({
+  backgroundColor,
+  firstLine,
+  fontFamily,
+  fontWeight,
+  secondLine,
+  textColor,
+  thirdLine,
+}) => (
   <div className="display">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -23,19 +31,19 @@ const CreateSVGDisplay = ({ formData }) => (
       <defs>
         <style>
           {`.base {
-                  @import url('https://fonts.googleapis.com/css2?family=${formData.fontFamily.replace(
-                    " ",
-                    "+"
-                  )}:wght@300;500;700&display=swap');
-                  fill: ${formData.textColor};
-                  font-family: "${formData.fontFamily}", sans-serif;
-                  font-size: ${Theme.font.size.md};
-                  font-weight: ${getFontWeight(formData.fontWeight)};
-                }`}
+            @import url('https://fonts.googleapis.com/css2?family=${fontFamily.replace(
+              " ",
+              "+"
+            )}:wght@300;500;700');
+            fill: ${textColor};
+            font-family: "${fontFamily}", sans-serif;
+            font-size: ${Theme.font.size.md};
+            font-weight: ${getFontWeight(fontWeight)};
+          }`}
         </style>
       </defs>
 
-      <rect width="100%" height="100%" fill={formData.backgroundColor} />
+      <rect width="100%" height="100%" fill={backgroundColor} />
 
       <text
         x="50%"
@@ -45,13 +53,13 @@ const CreateSVGDisplay = ({ formData }) => (
         textAnchor="middle"
       >
         <tspan x="50%" dy={`-${Theme.lineHeight.md}`}>
-          {formData.firstLine ?? ""}
+          {firstLine ?? ""}
         </tspan>
         <tspan x="50%" dy={Theme.lineHeight.md}>
-          {formData.secondLine ?? ""}
+          {secondLine ?? ""}
         </tspan>
         <tspan x="50%" dy={Theme.lineHeight.md}>
-          {formData.thirdLine ?? ""}
+          {thirdLine ?? ""}
         </tspan>
       </text>
     </svg>

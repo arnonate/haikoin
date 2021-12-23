@@ -53,8 +53,6 @@ const GlobalStyle = createGlobalStyle`
 function Haikoin({ Component, pageProps }) {
   const router = useRouter();
 
-  console.log(router.asPath);
-
   return (
     <>
       <GlobalStyle />

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 const CreateContainer = styled.div`
   display: flex;
@@ -40,76 +40,61 @@ const CreateContainer = styled.div`
       background-color: ${(props) => props.theme.colors.ui.transparent};
       border: 0;
       border-radius: ${(props) => props.theme.borderRadius.default};
-      color: ${(props) => props.theme.colors.text.default};
+      color: ${(props) => props.theme.colors.text.white};
       font-size: 16px;
       padding: ${(props) => props.theme.rhythm};
       min-width: 100%;
     }
-  }
 
-  .fields {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: ${(props) => `calc(${props.theme.rhythm}/2) 0`};
-
-    & > * {
-      width: ${(props) => `calc(50% - ${props.theme.rhythm})`};
-    }
-
-    .control {
+    .fields {
       align-items: center;
       display: flex;
-      justify-content: left;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: ${(props) => `calc(${props.theme.rhythm}/2) 0`};
 
-      label {
-        line-height: 1;
-        padding: ${(props) => `${props.theme.rhythm} 0`};
-        padding-right: ${(props) => `calc(${props.theme.rhythm}/2)`};
-        width: auto;
+      & > * {
+        width: ${(props) => `calc(50% - ${props.theme.rhythm})`};
       }
 
-      .color {
-        border: ${(props) => `2px solid ${props.theme.colors.text.default}`};
-        border-radius: ${(props) => props.theme.borderRadius.small};
-        cursor: pointer;
-        height: ${(props) => props.theme.rhythm};
-        width: ${(props) => `calc(${props.theme.rhythm}*2)`};
-      }
-
-      .select {
+      .control {
         align-items: center;
-        background-color: ${(props) => props.theme.colors.ui.transparent};
-        border: 0;
-        border-radius: ${(props) => props.theme.borderRadius.default};
-        color: ${(props) => props.theme.colors.text.default};
-        cursor: pointer;
         display: flex;
-        font-size: 16px;
-        padding: ${(props) => `calc(${props.theme.rhythm}/2)`};
+        justify-content: left;
 
-        svg {
-          height: ${(props) => props.theme.font.size.md};
-          margin-left: ${(props) => `calc(${props.theme.rhythm}/4)`};
-          width: ${(props) => props.theme.font.size.md};
+        label {
+          line-height: 1;
+          padding: ${(props) => `${props.theme.rhythm} 0`};
+          padding-right: ${(props) => `calc(${props.theme.rhythm}/2)`};
+          width: auto;
         }
-      }
 
-      .list {
-        background-color: ${(props) => props.theme.colors.ui.transparent};
-        border-radius: ${(props) => props.theme.borderRadius.default};
-      }
+        .color {
+          border: ${(props) => `2px solid ${props.theme.colors.text.white}`};
+          border-radius: ${(props) => props.theme.borderRadius.small};
+          cursor: pointer;
+          height: ${(props) => props.theme.rhythm};
+          width: ${(props) => `calc(${props.theme.rhythm}*2)`};
+        }
 
-      .react-colorful {
-        height: 160px;
-        width: 160px;
+        .select {
+          align-items: center;
+          background-color: ${(props) => props.theme.colors.ui.transparent};
+          border: 0;
+          border-radius: ${(props) => props.theme.borderRadius.default};
+          color: ${(props) => props.theme.colors.text.white};
+          cursor: pointer;
+          display: flex;
+          font-size: 16px;
+          justify-content: space-between;
+          padding: ${(props) => `calc(${props.theme.rhythm}/2)`};
+          width: 160px;
 
-        .react-colorful__saturation-pointer,
-        .react-colorful__hue-pointer {
-          cursor: grab;
-          height: ${(props) => props.theme.font.size.md};
-          width: ${(props) => props.theme.font.size.md};
+          svg {
+            height: ${(props) => props.theme.font.size.md};
+            margin-left: ${(props) => `calc(${props.theme.rhythm}/4)`};
+            width: ${(props) => props.theme.font.size.md};
+          }
         }
       }
     }
@@ -122,5 +107,46 @@ const CreateContainer = styled.div`
     }
   }
 `;
+
+const CreateGlobalStyles = createGlobalStyle`
+  .list {
+    background-color: ${(props) => props.theme.colors.ui.dark};
+    border-radius: ${(props) => props.theme.borderRadius.default};
+    max-height: 200px;
+    overflow: scroll;
+    padding: ${(props) => `calc(${props.theme.rhythm}/2)`};
+    width: 200px;
+
+    ul {
+      margin: 0;
+      padding: 0;
+
+      li {
+        color: ${(props) => props.theme.colors.text.white};
+        cursor: pointer;
+        display: block;
+        line-height: 1;
+        padding: ${(props) => `calc(${props.theme.rhythm}/2)`};
+
+        &:hover {
+          background-color: rgba(255,255,255,0.1)
+        }
+      }
+    }
+  }
+
+  .react-colorful {
+    height: 160px;
+    width: 160px;
+
+    .react-colorful__pointer {
+      cursor: grab;
+      height: ${(props) => props.theme.font.size.lg};
+      width: ${(props) => props.theme.font.size.lg};
+    }
+  }
+`;
+
+CreateContainer.GlobalStyles = CreateGlobalStyles;
 
 export default CreateContainer;

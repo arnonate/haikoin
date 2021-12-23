@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import { create as ipfsHttpClient } from "ipfs-http-client";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { syllable } from "syllable";
@@ -19,6 +20,7 @@ import {
   StyledCreate,
   StyledTitle,
 } from "../components";
+import CreateContainer from "../components/StyledCreate";
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
@@ -36,6 +38,8 @@ export default function CreateItem() {
     textColor: "#FFFFFF",
     thirdLine: "",
   });
+  const [fontPickerOpen, setFontPickerOpen] = useState(false);
+  const [weightPickerOpen, setWeightPickerOpen] = useState(false);
 
   const router = useRouter();
 
@@ -118,6 +122,24 @@ export default function CreateItem() {
 
   return (
     <StyledContainer>
+      <CreateContainer.GlobalStyles />
+
+      <Head>
+        <title>Create</title>
+        {Fonts.map((font) => (
+          <link
+            key={font}
+            href={`https://fonts.googleapis.com/css2?family=${font.replace(
+              " ",
+              "="
+            )}:wght@300;500;700&display=swap`}
+            media="print"
+            onLoad="this.onload=null;this.removeAttribute('media');"
+            rel="stylesheet"
+          />
+        ))}
+      </Head>
+
       <StyledTitle>
         <h1>
           <MagicWandIcon /> Create
@@ -178,7 +200,10 @@ export default function CreateItem() {
           <div className="fields">
             <div className="control">
               <label>Font Family:</label>
-              <ReactPopover.Root>
+              <ReactPopover.Root
+                open={fontPickerOpen}
+                onOpenChange={(open) => setFontPickerOpen(open)}
+              >
                 <ReactPopover.Trigger>
                   <div className="select">
                     {formData.fontFamily}
@@ -186,26 +211,31 @@ export default function CreateItem() {
                   </div>
                 </ReactPopover.Trigger>
                 <ReactPopover.Content>
-                  <ul
-                    className="list"
-                    onClick={(event) =>
-                      setFormData((state) => ({
-                        ...state,
-                        fontFamily: event.target.innerText,
-                      }))
-                    }
-                  >
-                    {Fonts.map((font) => (
-                      <li key={font}>{font}</li>
-                    ))}
-                  </ul>
+                  <div className="list">
+                    <ul
+                      onMouseUp={(event) => {
+                        setFormData((state) => ({
+                          ...state,
+                          fontFamily: event.target.innerText,
+                        }));
+                        setFontPickerOpen(false);
+                      }}
+                    >
+                      {Fonts.map((font) => (
+                        <li key={font}>{font}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </ReactPopover.Content>
               </ReactPopover.Root>
             </div>
 
             <div className="control">
               <label>Font Weight:</label>
-              <ReactPopover.Root>
+              <ReactPopover.Root
+                open={weightPickerOpen}
+                onOpenChange={(open) => setWeightPickerOpen(open)}
+              >
                 <ReactPopover.Trigger>
                   <div className="select">
                     {formData.fontWeight}
@@ -213,19 +243,21 @@ export default function CreateItem() {
                   </div>
                 </ReactPopover.Trigger>
                 <ReactPopover.Content>
-                  <ul
-                    className="list"
-                    onClick={(event) =>
-                      setFormData((state) => ({
-                        ...state,
-                        fontWeight: event.target.innerText,
-                      }))
-                    }
-                  >
-                    <li>Light</li>
-                    <li>Regular</li>
-                    <li>Bold</li>
-                  </ul>
+                  <div className="list">
+                    <ul
+                      onMouseUp={(event) => {
+                        setFormData((state) => ({
+                          ...state,
+                          fontWeight: event.target.innerText,
+                        }));
+                        setWeightPickerOpen(false);
+                      }}
+                    >
+                      {["Light", "Regular", "Bold"].map((weight) => (
+                        <li key={weight}>{weight}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </ReactPopover.Content>
               </ReactPopover.Root>
             </div>
@@ -293,7 +325,7 @@ export default function CreateItem() {
           </div>
         </form>
 
-        <CreateSVGDisplay formData={formData} />
+        <CreateSVGDisplay {...formData} />
       </StyledCreate>
     </StyledContainer>
   );

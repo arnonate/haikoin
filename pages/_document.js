@@ -37,24 +37,6 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;500;700&display=swap"
             rel="stylesheet"
           />
-          <link
-            media="print"
-            onLoad="this.onload=null;this.removeAttribute('media');"
-            href="https://fonts.googleapis.com/css2?family=Sora:wght@300;500;700&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            media="print"
-            onLoad="this.onload=null;this.removeAttribute('media');"
-            href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@300;500;700&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            media="print"
-            onLoad="this.onload=null;this.removeAttribute('media');"
-            href="https://fonts.googleapis.com/css2?family=JetBrains=Mono:wght@300;500;700&display=swap"
-            rel="stylesheet"
-          />
         </Head>
 
         <body>
