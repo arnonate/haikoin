@@ -211,7 +211,9 @@ const CreateForm = ({ formData, setFormData }) => {
 
         <div className="mintButton">
           <Button onClick={() => console.log("createNFT")}>
-            <MagicWandIcon /> Create Digital Asset
+            <MagicWandIcon />
+            <span>Mint Your Haikoin</span>
+            <MagicWandIcon style={{ transform: "scaleX(-1)" }} />
           </Button>
         </div>
       </div>
