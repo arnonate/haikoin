@@ -23,12 +23,15 @@ const CreateSVGDisplay = ({
   secondLine,
   textColor,
   thirdLine,
+  svgRef,
 }) => (
   <div className="display">
     <svg
-      xmlns="http://www.w3.org/2000/svg"
+      className="haikoin"
       preserveAspectRatio="xMinYMin meet"
-      viewBox="0 0 350 350"
+      ref={svgRef}
+      viewBox="0 0 300 300"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
         <style>

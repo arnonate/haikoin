@@ -35,6 +35,11 @@ const CreateContainer = styled.div`
       margin-top: ${(props) => props.theme.rhythm};
     }
 
+    .error {
+      color: ${(props) => props.theme.colors.text.error};
+      font-size: ${(props) => props.theme.font.size.sm};
+    }
+
     input,
     textarea {
       background-color: ${(props) => props.theme.colors.ui.transparent};
@@ -103,16 +108,16 @@ const CreateContainer = styled.div`
           }
         }
       }
+    }
 
-      .mintButton {
-        align-self: flex-end;
-        display: flex;
-        justify-content: flex-end;
-      }
+    .mintButton {
+      padding-top: ${(props) => props.theme.rhythm};
     }
   }
 
   .display {
+    position: relative;
+
     svg {
       border: ${(props) => `8px solid ${props.theme.colors.ui.transparent}`};
       border-radius: ${(props) => props.theme.borderRadius.large};

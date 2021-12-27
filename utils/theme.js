@@ -1,4 +1,4 @@
-const base = `15`;
+const base = `16`;
 
 const theme = {
   borderRadius: {
@@ -15,6 +15,7 @@ const theme = {
     },
     text: {
       default: `#8f75bd`,
+      error: `#DA26DE`,
       highlight: `#7126BC`,
       link: `#DA26DE`,
       white: `#FFFFFF`,

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { ThemeProvider } from "styled-components";
 import {
   LightningBoltIcon,
@@ -11,6 +10,7 @@ import {
 
 import { Theme, Routes, Config } from "../utils";
 import {
+  ActiveLink,
   GlobalStyles,
   StyledContainer,
   StyledFooter,
@@ -18,8 +18,6 @@ import {
 } from "../components";
 
 function Haikoin({ Component, pageProps }) {
-  const router = useRouter();
-
   return (
     <>
       <GlobalStyles />
@@ -42,28 +40,26 @@ function Haikoin({ Component, pageProps }) {
             </div>
 
             <nav className="nav">
-              <Link href={Routes.home}>
-                <a className={router.asPath === Routes.home ? "active" : ""}>
+              <ActiveLink activeClassName="active" href={Routes.home}>
+                <a>
                   <HomeIcon /> Home
                 </a>
-              </Link>
-              <Link href={Routes.create}>
-                <a className={router.asPath === Routes.create ? "active" : ""}>
+              </ActiveLink>
+              <ActiveLink activeClassName="active" href={Routes.create}>
+                <a>
                   <MagicWandIcon /> Create
                 </a>
-              </Link>
-              <Link href={Routes.mine}>
-                <a className={router.asPath === Routes.mine ? "active" : ""}>
+              </ActiveLink>
+              <ActiveLink activeClassName="active" href={Routes.mine}>
+                <a>
                   <StackIcon /> My Haikoins
                 </a>
-              </Link>
-              <Link href={Routes.dashboard}>
-                <a
-                  className={router.asPath === Routes.dashboard ? "active" : ""}
-                >
+              </ActiveLink>
+              <ActiveLink activeClassName="active" href={Routes.dashboard}>
+                <a>
                   <LightningBoltIcon /> Explore
                 </a>
-              </Link>
+              </ActiveLink>
             </nav>
           </StyledHeader>
         </header>

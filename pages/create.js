@@ -2,8 +2,7 @@ import { ethers } from "ethers";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useEFfect, useState } from "react";
-import { syllable } from "syllable";
+import { useRef, useState } from "react";
 import Web3Modal from "web3modal";
 import { MagicWandIcon } from "@radix-ui/react-icons";
 
@@ -24,7 +23,9 @@ import useDebouncy from "use-debouncy/lib/effect";
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 export default function CreateItem() {
-  const [fileUrl, setFileUrl] = useState(null);
+  const svgRef = useRef(null);
+
+  const [uploadingToIPFS, setUploadingToIPFS] = useState(false);
   const [formData, setFormData] = useState({
     backgroundColor: Theme.colors.ui.dark,
     description: "",
@@ -40,41 +41,21 @@ export default function CreateItem() {
 
   const router = useRouter();
 
-  // async function onChange(e) {
-  //   const file = e.target.files[0];
-
-  //   try {
-  //     const added = await client.add(file, {
-  //       progress: (prog) => console.log(`received: ${prog}`),
-  //     });
-  //     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-
-  //     setFileUrl(url);
-  //   } catch (error) {
-  //     console.log("Error uploading file: ", error);
-  //   }
-  // }
-
-  async function createNFT() {
-    const { name, description, price } = formData;
-
-    if (!name || !description || !price || !fileUrl) return;
-
-    /* first, upload to IPFS */
-    const data = JSON.stringify({
-      name,
-      description,
-      image: fileUrl,
-    });
+  async function uploadToIPFS() {
+    setUploadingToIPFS(true);
 
     try {
-      const added = await client.add(data);
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-      /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
-      createSale(url);
+      const added = await client.add(file, {
+        progress: (prog) => console.log(`received: ${prog}`),
+      });
+
+      // Return path to file on IPFS
+      return `https://ipfs.infura.io/ipfs/${added.path}`;
     } catch (error) {
       console.log("Error uploading file: ", error);
     }
+
+    setUploadingToIPFS(false);
   }
 
   async function createSale(url) {
@@ -110,6 +91,36 @@ export default function CreateItem() {
     router.push("/");
   }
 
+  async function handleCreate() {
+    const { name, description } = formData;
+
+    if (!name) {
+      setFormError("name");
+      return;
+    }
+
+    if (!description) {
+      setFormError("description");
+      return;
+    }
+
+    /* first, upload to IPFS */
+    const data = JSON.stringify({
+      name,
+      description,
+      image: fileUrl,
+    });
+
+    try {
+      const added = await client.add(data);
+      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
+      createSale(url);
+    } catch (error) {
+      console.log("Error uploading file: ", error);
+    }
+  }
+
   return (
     <StyledContainer>
       <CreateContainer.GlobalStyles />
@@ -122,7 +133,7 @@ export default function CreateItem() {
             key={font}
             href={`https://fonts.googleapis.com/css2?family=${font.replace(
               " ",
-              "="
+              "+"
             )}:wght@300;500;700&display=swap`}
             media="print"
             onLoad="this.onload=null;this.removeAttribute('media');"
@@ -138,8 +149,12 @@ export default function CreateItem() {
       </StyledTitle>
 
       <StyledCreate>
-        <CreateForm formData={formData} setFormData={setFormData} />
-        <CreateSVGDisplay {...formData} />
+        <CreateForm
+          formData={formData}
+          setFormData={setFormData}
+          onCreateClick={handleCreate}
+        />
+        <CreateSVGDisplay {...formData} svgRef={svgRef} />
       </StyledCreate>
     </StyledContainer>
   );

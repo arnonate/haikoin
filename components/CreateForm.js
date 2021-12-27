@@ -11,11 +11,28 @@ import {
 import { Fonts } from "../utils";
 import { Button } from "../components";
 
-const CreateForm = ({ formData, setFormData }) => {
+const CreateForm = ({ formData, setFormData, onCreateClick }) => {
   const [fontPickerOpen, setFontPickerOpen] = useState(false);
   const [weightPickerOpen, setWeightPickerOpen] = useState(false);
   const [backgroundPickerOpen, setBackgroundPickerOpen] = useState(false);
   const [textPickerOpen, setTextPickerOpen] = useState(false);
+
+  const defaultErrorState = {
+    description: false,
+    firstLine: false,
+    name: false,
+    price: false,
+    secondLine: false,
+    thirdLine: false,
+  };
+  const [hasFormErrors, setHasFormErrors] = useState(defaultErrorState);
+
+  const setFormError = (field) => {
+    setHasFormErrors((state) => ({
+      ...state,
+      [field]: true,
+    }));
+  };
 
   const handleInputChange = (event) => {
     setFormData((state) => ({
@@ -24,10 +41,53 @@ const CreateForm = ({ formData, setFormData }) => {
     }));
   };
 
+  const handleCreateClick = (event) => {
+    event.preventDefault();
+    // Reset form errors
+    setHasFormErrors(defaultErrorState);
+
+    const { name, description, firstLine, secondLine, thirdLine } = formData;
+
+    // Check form for missing fields and eject with error
+    if (!name) {
+      setFormError("name");
+      return;
+    }
+
+    if (!description) {
+      setFormError("description");
+      return;
+    }
+
+    if (!firstLine || syllable(firstLine) !== 5) {
+      setFormError("firstLine");
+      return;
+    }
+
+    if (!secondLine || syllable(secondLine) !== 7) {
+      setFormError("secondLine");
+      return;
+    }
+
+    if (!thirdLine || syllable(thirdLine) !== 5) {
+      setFormError("thirdLine");
+      return;
+    }
+
+    onCreateClick();
+  };
+
   return (
     <form className="form">
       <label htmlFor="firstLine">
-        First Line <span>{syllable(formData.firstLine)} of 5 syllables</span>
+        First Line{" "}
+        {hasFormErrors.firstLine ? (
+          <span className="error">
+            First line must be present and 5 syllables.
+          </span>
+        ) : (
+          <span>{syllable(formData.firstLine)} of 5 syllables</span>
+        )}
       </label>
       <input
         id="firstLine"
@@ -37,7 +97,14 @@ const CreateForm = ({ formData, setFormData }) => {
       />
 
       <label htmlFor="secondLine">
-        Second Line <span>{syllable(formData.secondLine)} of 7 syllables</span>
+        Second Line{" "}
+        {hasFormErrors.secondLine ? (
+          <span className="error">
+            Second line must be present and 7 syllables.
+          </span>
+        ) : (
+          <span>{syllable(formData.secondLine)} of 7 syllables</span>
+        )}
       </label>
       <input
         id="secondLine"
@@ -46,8 +113,15 @@ const CreateForm = ({ formData, setFormData }) => {
         onChange={handleInputChange}
       />
 
-      <label htmlFor="thridLine">
-        Third Line <span>{syllable(formData.thirdLine)} of 5 syllables</span>
+      <label htmlFor="thirdLine">
+        Third Line{" "}
+        {hasFormErrors.thirdLine ? (
+          <span className="error">
+            Third line must be present and 7 syllables.
+          </span>
+        ) : (
+          <span>{syllable(formData.thirdLine)} of 5 syllables</span>
+        )}
       </label>
       <input
         id="thirdLine"
@@ -56,7 +130,12 @@ const CreateForm = ({ formData, setFormData }) => {
         onChange={handleInputChange}
       />
 
-      <label htmlFor="name">Name of your Haikoin</label>
+      <label htmlFor="name">
+        Name of your Haikoin{" "}
+        {hasFormErrors.name ? (
+          <span className="error">Name is required</span>
+        ) : null}
+      </label>
       <input
         id="name"
         name="name"
@@ -64,7 +143,12 @@ const CreateForm = ({ formData, setFormData }) => {
         onChange={handleInputChange}
       />
 
-      <label htmlFor="description">Description of your Haikoin</label>
+      <label htmlFor="description">
+        Description of your Haikoin{" "}
+        {hasFormErrors.description ? (
+          <span className="error">Description is required.</span>
+        ) : null}
+      </label>
       <textarea
         id="description"
         name="description"
@@ -197,25 +281,12 @@ const CreateForm = ({ formData, setFormData }) => {
         </div>
       </div>
 
-      <div className="fields">
-        <div>
-          <label htmlFor="price">Selling price (Eth)</label>
-          <input
-            id="price"
-            name="price"
-            placeholder=".025"
-            type="number"
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className="mintButton">
-          <Button onClick={() => console.log("createNFT")}>
-            <MagicWandIcon />
-            <span>Mint Your Haikoin</span>
-            <MagicWandIcon style={{ transform: "scaleX(-1)" }} />
-          </Button>
-        </div>
+      <div className="mintButton">
+        <Button onClick={handleCreateClick}>
+          <MagicWandIcon />
+          <span>Mint Your Haikoin</span>
+          <MagicWandIcon style={{ transform: "scaleX(-1)" }} />
+        </Button>
       </div>
     </form>
   );

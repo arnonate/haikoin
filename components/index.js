@@ -1,3 +1,4 @@
+import ActiveLink from "./ActiveLink";
 import Button from "./Button";
 import CreateForm from "./CreateForm";
 import CreateSVGDisplay from "./CreateSVGDisplay";
@@ -9,6 +10,7 @@ import StyledHeader from "./StyledHeader";
 import StyledTitle from "./StyledTitle";
 
 export {
+  ActiveLink,
   Button,
   CreateForm,
   CreateSVGDisplay,
