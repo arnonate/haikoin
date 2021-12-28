@@ -17,7 +17,6 @@
     "@radix-ui/react-icons": "^1.0.3",
     "@radix-ui/react-popover": "^0.1.4",
     "axios": "^0.24.0",
-    "bad-words": "^3.0.4",
     "chai": "^4.3.4",
     "dotenv": "^10.0.0",
     "ethereum-waffle": "^3.4.0",
@@ -30,7 +29,6 @@
     "react-dom": "17.0.2",
     "styled-components": "^5.3.3",
     "syllable": "^5.0.0",
-    "use-debouncy": "^4.2.1",
     "web3modal": "^1.9.4"
   },
   "devDependencies": {

@@ -1,6 +1,7 @@
 import { memo } from "react";
 
 import { Theme } from "../utils";
+import { Hahmlet } from "../fonts/Hahmlet";
 
 const getFontWeight = (weight) => {
   switch (weight) {
@@ -35,16 +36,13 @@ const CreateSVGDisplay = ({
     >
       <defs>
         <style>
-          {`.base {
-            @import url('https://fonts.googleapis.com/css2?family=${fontFamily.replace(
-              " ",
-              "+"
-            )}:wght@300;500;700');
-            fill: ${textColor};
-            font-family: "${fontFamily}", sans-serif;
-            font-size: ${Theme.font.size.md};
-            font-weight: ${getFontWeight(fontWeight)};
-          }`}
+          {`
+            @font-face {
+              font-family: Hahmlet;
+              src: url(data:application/font-woff;charset=utf-8;base64,${Hahmlet})  format('woff');
+              font-style: normal;
+            }
+          `}
         </style>
       </defs>
 
@@ -53,7 +51,10 @@ const CreateSVGDisplay = ({
       <text
         x="50%"
         y="50%"
-        className="base"
+        fill={textColor}
+        fontFamily="Hahmlet"
+        fontSize={Theme.font.size.md}
+        fontWeight={getFontWeight(fontWeight)}
         dominantBaseline="middle"
         textAnchor="middle"
       >

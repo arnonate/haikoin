@@ -18,11 +18,10 @@ import {
   StyledTitle,
 } from "../components";
 import CreateContainer from "../components/StyledCreate";
-import useDebouncy from "use-debouncy/lib/effect";
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
-export default function CreateItem() {
+export default function Create() {
   const svgRef = useRef(null);
 
   const [uploadingToIPFS, setUploadingToIPFS] = useState(false);
@@ -41,23 +40,6 @@ export default function CreateItem() {
 
   const router = useRouter();
 
-  async function uploadToIPFS() {
-    setUploadingToIPFS(true);
-
-    try {
-      const added = await client.add(file, {
-        progress: (prog) => console.log(`received: ${prog}`),
-      });
-
-      // Return path to file on IPFS
-      return `https://ipfs.infura.io/ipfs/${added.path}`;
-    } catch (error) {
-      console.log("Error uploading file: ", error);
-    }
-
-    setUploadingToIPFS(false);
-  }
-
   async function createSale(url) {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -71,9 +53,9 @@ export default function CreateItem() {
     let event = tx.events[0];
     let value = event.args[2];
     let tokenId = value.toNumber();
-    const price = ethers.utils.parseUnits(formData.price, "ether");
 
     /* then list the item for sale on the marketplace */
+    const price = ethers.utils.parseUnits(formData.price, "ether");
     contract = new ethers.Contract(Config.nftmarketaddress, Market.abi, signer);
     let listingPrice = await contract.getListingPrice();
     listingPrice = listingPrice.toString();
@@ -88,37 +70,56 @@ export default function CreateItem() {
     );
 
     await transaction.wait();
+    // TODO push to creator dashboard instead of marketplace
     router.push("/");
   }
 
   async function handleCreate() {
+    var canvas = document.createElement("canvas");
+    canvas.width = 2000;
+    canvas.height = 2000;
+    var ctx = canvas.getContext("2d");
+
+    //display image
+    var img = document.createElement("img");
+    img.setAttribute(
+      "src",
+      "data:image/svg+xml;base64," + btoa(svgRef.current.outerHTML)
+    );
+
+    img.onload = function () {
+      ctx.drawImage(img, 0, 0);
+
+      console.log(canvas.toDataURL("image/png"));
+    };
+
     const { name, description } = formData;
-
-    if (!name) {
-      setFormError("name");
-      return;
-    }
-
-    if (!description) {
-      setFormError("description");
-      return;
-    }
 
     /* first, upload to IPFS */
     const data = JSON.stringify({
       name,
       description,
-      image: fileUrl,
+      // image,
     });
 
     try {
-      const added = await client.add(data);
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      setUploadingToIPFS(true);
+      // const added = await client.add(data);
+      setUploadingToIPFS(false);
+
+      // const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+
       /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
-      createSale(url);
+      // createSale(url);
+      // console.log({ url });
     } catch (error) {
       console.log("Error uploading file: ", error);
     }
+  }
+
+  let str;
+  if (typeof window !== "undefined" && svgRef.current) {
+    str = window.btoa(svgRef.current.outerHTML);
   }
 
   return (

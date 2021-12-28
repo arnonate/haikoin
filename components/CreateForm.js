@@ -49,16 +49,6 @@ const CreateForm = ({ formData, setFormData, onCreateClick }) => {
     const { name, description, firstLine, secondLine, thirdLine } = formData;
 
     // Check form for missing fields and eject with error
-    if (!name) {
-      setFormError("name");
-      return;
-    }
-
-    if (!description) {
-      setFormError("description");
-      return;
-    }
-
     if (!firstLine || syllable(firstLine) !== 5) {
       setFormError("firstLine");
       return;
@@ -71,6 +61,16 @@ const CreateForm = ({ formData, setFormData, onCreateClick }) => {
 
     if (!thirdLine || syllable(thirdLine) !== 5) {
       setFormError("thirdLine");
+      return;
+    }
+
+    if (!name) {
+      setFormError("name");
+      return;
+    }
+
+    if (!description) {
+      setFormError("description");
       return;
     }
 
