@@ -9,7 +9,7 @@ import { MagicWandIcon } from "@radix-ui/react-icons";
 import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
 import Market from "../artifacts/contracts/Market.sol/NFTMarket.json";
 
-import { Config, Fonts, Theme } from "../utils";
+import { Config, Theme } from "../utils";
 import {
   CreateForm,
   CreateSVGDisplay,
@@ -128,19 +128,6 @@ export default function Create() {
 
       <Head>
         <title>Create | {Config.siteTitle}</title>
-
-        {Fonts.map((font) => (
-          <link
-            key={font}
-            href={`https://fonts.googleapis.com/css2?family=${font.replace(
-              " ",
-              "+"
-            )}:wght@300;500;700&display=swap`}
-            media="print"
-            onLoad="this.onload=null;this.removeAttribute('media');"
-            rel="stylesheet"
-          />
-        ))}
       </Head>
 
       <StyledTitle>

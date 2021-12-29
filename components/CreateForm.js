@@ -181,7 +181,7 @@ const CreateForm = ({ formData, setFormData, onCreateClick }) => {
                     setFontPickerOpen(false);
                   }}
                 >
-                  {Fonts.map((font) => (
+                  {Object.keys(Fonts).map((font) => (
                     <li key={font}>{font}</li>
                   ))}
                 </ul>
@@ -214,7 +214,7 @@ const CreateForm = ({ formData, setFormData, onCreateClick }) => {
                     setWeightPickerOpen(false);
                   }}
                 >
-                  {["Light", "Regular", "Bold"].map((weight) => (
+                  {["Light", "Medium", "Bold"].map((weight) => (
                     <li key={weight}>{weight}</li>
                   ))}
                 </ul>

@@ -1,20 +1,6 @@
 import { memo } from "react";
 
-import { Theme } from "../utils";
-import { Hahmlet } from "../fonts/Hahmlet";
-
-const getFontWeight = (weight) => {
-  switch (weight) {
-    case "Light":
-      return 300;
-    case "Regular":
-      return 500;
-    case "Bold":
-      return 700;
-    default:
-      return 500;
-  }
-};
+import { Fonts, Theme } from "../utils";
 
 const CreateSVGDisplay = ({
   backgroundColor,
@@ -27,6 +13,11 @@ const CreateSVGDisplay = ({
   svgRef,
 }) => (
   <div className="display">
+    {console.log({
+      fontFamily,
+      fontWeight,
+      fontFace: Fonts[fontFamily][fontWeight],
+    })}
     <svg
       className="haikoin"
       preserveAspectRatio="xMinYMin meet"
@@ -38,9 +29,10 @@ const CreateSVGDisplay = ({
         <style>
           {`
             @font-face {
-              font-family: Hahmlet;
-              src: url(data:application/font-woff;charset=utf-8;base64,${Hahmlet})  format('woff');
+              font-family: ${fontFamily};
+              src: url(data:application/font-woff;charset=utf-8;base64,${Fonts[fontFamily][fontWeight]});
               font-style: normal;
+              font-weight: ${fontWeight};
             }
           `}
         </style>
@@ -52,9 +44,9 @@ const CreateSVGDisplay = ({
         x="50%"
         y="50%"
         fill={textColor}
-        fontFamily="Hahmlet"
+        fontFamily={fontFamily}
         fontSize={Theme.font.size.md}
-        fontWeight={getFontWeight(fontWeight)}
+        fontWeight={fontWeight}
         dominantBaseline="middle"
         textAnchor="middle"
       >
