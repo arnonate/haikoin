@@ -6,8 +6,8 @@ import axios from "axios";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 
-import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
-import Market from "../artifacts/contracts/Market.sol/NFTMarket.json";
+import HaikoinMarketContract from "../artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
+import HaikoinTokenContract from "../artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
 
 import { Config } from "../utils";
 
@@ -28,13 +28,13 @@ export default function Home() {
     /* create a generic provider and query for unsold market items */
     const provider = new ethers.providers.JsonRpcProvider();
     const tokenContract = new ethers.Contract(
-      Config.nftaddress,
-      NFT.abi,
+      Config.haikoinTokenContractAddress,
+      HaikoinTokenContract.abi,
       provider
     );
     const marketContract = new ethers.Contract(
-      Config.nftmarketaddress,
-      Market.abi,
+      Config.haikoinMarketContractAddress,
+      HaikoinMarketContract.abi,
       provider
     );
     const data = await marketContract.fetchMarketItems();
@@ -70,12 +70,16 @@ export default function Home() {
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-    const contract = new ethers.Contract(nftmarketaddress, Market.abi, signer);
+    const contract = new ethers.Contract(
+      haikoinMarketContractAddress,
+      HaikoinMarketContract.abi,
+      signer
+    );
 
     /* user will be prompted to pay the asking proces to complete the transaction */
     const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
     const transaction = await contract.createMarketSale(
-      nftaddress,
+      haikoinTokenContractAddress,
       nft.tokenId,
       {
         value: price,

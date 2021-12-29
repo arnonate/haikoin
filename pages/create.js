@@ -6,8 +6,8 @@ import { useRef, useState } from "react";
 import Web3Modal from "web3modal";
 import { MagicWandIcon } from "@radix-ui/react-icons";
 
-import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
-import Market from "../artifacts/contracts/Market.sol/NFTMarket.json";
+import HaikoinMarketContract from "../artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
+import HaikoinTokenContract from "../artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
 
 import { Config, Theme } from "../utils";
 import {
@@ -47,7 +47,11 @@ export default function Create() {
     const signer = provider.getSigner();
 
     /* next, create the item */
-    let contract = new ethers.Contract(Config.nftaddress, NFT.abi, signer);
+    let contract = new ethers.Contract(
+      Config.haikoinTokenContractAddress,
+      HaikoinTokenContract.abi,
+      signer
+    );
     let transaction = await contract.createToken(url);
     let tx = await transaction.wait();
     let event = tx.events[0];
@@ -56,12 +60,16 @@ export default function Create() {
 
     /* then list the item for sale on the marketplace */
     const price = ethers.utils.parseUnits(formData.price, "ether");
-    contract = new ethers.Contract(Config.nftmarketaddress, Market.abi, signer);
+    contract = new ethers.Contract(
+      Config.haikoinMarketContractAddress,
+      HaikoinMarketContract.abi,
+      signer
+    );
     let listingPrice = await contract.getListingPrice();
     listingPrice = listingPrice.toString();
 
     transaction = await contract.createMarketItem(
-      Config.nftaddress,
+      Config.haikoinTokenContractAddress,
       tokenId,
       price,
       {
@@ -89,13 +97,13 @@ export default function Create() {
           canvasContext.drawImage(tempImage, 0, 0);
 
           // Create ipfs package
-          const ipfsPackage = JSON.stringify({
+          const IPFSPackage = JSON.stringify({
             name,
             description,
             image: canvas.toDataURL("image/png"),
           });
 
-          resolve(ipfsPackage);
+          resolve(IPFSPackage);
         };
 
         tempImage.onError = reject;
@@ -108,14 +116,12 @@ export default function Create() {
     try {
       setUploadingToIPFS(true);
 
-      const ipfsPackage = await getImageFromSvg();
-      const ipfsResult = await client.add(ipfsPackage);
+      const IPFSPackage = await getImageFromSvg();
+      const IPFSResult = await client.add(IPFSPackage);
 
       setUploadingToIPFS(false);
 
-      console.log({ ipfsResult });
-
-      const ipfsPath = `https://ipfs.infura.io/ipfs/${ipfsResult.path}`;
+      const ipfsPath = `https://ipfs.infura.io/ipfs/${IPFSResult.path}`;
 
       /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
       // createSale(ipfsPath);
@@ -150,6 +156,7 @@ export default function Create() {
           formData={formData}
           setFormData={setFormData}
           onCreateClick={handleCreate}
+          uploadingToIPFS={uploadingToIPFS}
         />
         <CreateSVGDisplay {...formData} svgRef={svgRef} />
       </StyledCreate>

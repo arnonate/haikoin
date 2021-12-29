@@ -11,7 +11,12 @@ import {
 import { Fonts } from "../utils";
 import { Button } from "../components";
 
-const CreateForm = ({ formData, setFormData, onCreateClick }) => {
+const CreateForm = ({
+  formData,
+  setFormData,
+  onCreateClick,
+  uploadingToIPFS,
+}) => {
   const [fontPickerOpen, setFontPickerOpen] = useState(false);
   const [weightPickerOpen, setWeightPickerOpen] = useState(false);
   const [backgroundPickerOpen, setBackgroundPickerOpen] = useState(false);

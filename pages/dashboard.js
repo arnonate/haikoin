@@ -4,8 +4,8 @@ import { ethers } from "ethers";
 import axios from "axios";
 import Web3Modal from "web3modal";
 
-import Market from "../artifacts/contracts/Market.sol/NFTMarket.json";
-import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
+import HaikoinMarketContract from "../artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
+import HaikoinTokenContract from "../artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
 
 import { Config } from "../utils";
 
@@ -28,13 +28,13 @@ export default function CreatorDashboard() {
     const signer = provider.getSigner();
 
     const marketContract = new ethers.Contract(
-      Config.nftmarketaddress,
-      Market.abi,
+      Config.haikoinMarketContractAddress,
+      HaikoinMarketContract.abi,
       signer
     );
     const tokenContract = new ethers.Contract(
-      Config.nftaddress,
-      NFT.abi,
+      Config.haikoinTokenContractAddress,
+      HaikoinTokenContract.abi,
       provider
     );
     const data = await marketContract.fetchItemsCreated();
