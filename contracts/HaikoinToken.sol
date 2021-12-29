@@ -4,7 +4,6 @@ pragma solidity ^0.8.3;
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-
 import "hardhat/console.sol";
 
 contract HaikoinToken is ERC721URIStorage {
@@ -18,12 +17,13 @@ contract HaikoinToken is ERC721URIStorage {
 
   function createToken(string memory tokenURI) public returns (uint) {
     _tokenIds.increment();
-    uint256 newItemId = _tokenIds.current();
 
-    _mint(msg.sender, newItemId);
-    _setTokenURI(newItemId, tokenURI);
+    uint256 newTokenId = _tokenIds.current();
+
+    _safeMint(msg.sender, newTokenId);
+    _setTokenURI(newTokenId, tokenURI);
     setApprovalForAll(contractAddress, true);
 
-    return newItemId;
+    return newTokenId;
   }
 }

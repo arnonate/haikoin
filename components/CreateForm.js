@@ -289,7 +289,9 @@ const CreateForm = ({
       <div className="mintButton">
         <Button onClick={handleCreateClick}>
           <MagicWandIcon />
-          <span>Mint Your Haikoin</span>
+          <span>
+            {uploadingToIPFS ? `Uploading to IPFS...` : `Mint Your Haikoin`}
+          </span>
           <MagicWandIcon style={{ transform: "scaleX(-1)" }} />
         </Button>
       </div>

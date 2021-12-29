@@ -476,8 +476,8 @@
       ]
     },
     "/Users/arnonate/code/haikoin/contracts/HaikoinToken.sol": {
-      "lastModificationDate": 1640798948941,
-      "contentHash": "bb181004a05aa61e703596ef5a48b06c",
+      "lastModificationDate": 1640804249823,
+      "contentHash": "644222a825c1e16f856ec5c782cee14d",
       "sourceName": "contracts/HaikoinToken.sol",
       "solcConfig": {
         "version": "0.8.4",

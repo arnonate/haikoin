@@ -40,46 +40,48 @@ export default function Create() {
 
   const router = useRouter();
 
-  async function createSale(url) {
+  async function mintToken(url) {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
 
-    /* next, create the item */
-    let contract = new ethers.Contract(
+    // Create Haikoin token!
+    const contract = new ethers.Contract(
       Config.haikoinTokenContractAddress,
       HaikoinTokenContract.abi,
       signer
     );
-    let transaction = await contract.createToken(url);
-    let tx = await transaction.wait();
-    let event = tx.events[0];
-    let value = event.args[2];
-    let tokenId = value.toNumber();
+    const createTokenResponse = await contract.createToken(url);
+    const response = await createTokenResponse.wait();
+    const tokenCreatedEvent = response.events[0];
+    const tokenCreatedValue = tokenCreatedEvent.args[2];
+    const tokenAddress = tokenCreatedValue.toNumber();
 
-    /* then list the item for sale on the marketplace */
-    const price = ethers.utils.parseUnits(formData.price, "ether");
-    contract = new ethers.Contract(
-      Config.haikoinMarketContractAddress,
-      HaikoinMarketContract.abi,
-      signer
-    );
-    let listingPrice = await contract.getListingPrice();
-    listingPrice = listingPrice.toString();
+    console.log({ tokenAddress });
 
-    transaction = await contract.createMarketItem(
-      Config.haikoinTokenContractAddress,
-      tokenId,
-      price,
-      {
-        value: listingPrice,
-      }
-    );
+    // TODO move listing logic to single Haikoin view
+    // const price = ethers.utils.parseUnits(formData.price, "ether");
+    // contract = new ethers.Contract(
+    //   Config.haikoinMarketContractAddress,
+    //   HaikoinMarketContract.abi,
+    //   signer
+    // );
+    // let listingPrice = await contract.getListingPrice();
+    // listingPrice = listingPrice.toString();
 
-    await transaction.wait();
-    // TODO push to creator dashboard instead of marketplace
-    router.push("/");
+    // transaction = await contract.createMarketItem(
+    //   Config.haikoinTokenContractAddress,
+    //   tokenId,
+    //   price,
+    //   {
+    //     value: listingPrice,
+    //   }
+    // );
+    // await transaction.wait();
+
+    // TODO push to single token view with address
+    // router.push("/haikoin/${tokenAddress");
   }
 
   async function handleCreate() {
@@ -122,19 +124,13 @@ export default function Create() {
       setUploadingToIPFS(false);
 
       const ipfsPath = `https://ipfs.infura.io/ipfs/${IPFSResult.path}`;
-
-      /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
-      // createSale(ipfsPath);
-
       console.log({ ipfsPath });
+
+      // After file is uploaded to IPFS, pass the URL to save it on Polygon
+      mintToken(ipfsPath);
     } catch (error) {
       console.log("Error uploading file: ", error);
     }
-  }
-
-  let str;
-  if (typeof window !== "undefined" && svgRef.current) {
-    str = window.btoa(svgRef.current.outerHTML);
   }
 
   return (
