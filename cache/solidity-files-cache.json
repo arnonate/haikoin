@@ -74,8 +74,8 @@
       ]
     },
     "/Users/arnonate/code/haikoin/contracts/NFT.sol": {
-      "lastModificationDate": 1639284560116,
-      "contentHash": "6c67c50003723776df2f803808b885d8",
+      "lastModificationDate": 1640724928806,
+      "contentHash": "46ba18be77ed2ff549a83a16a1bc48ab",
       "sourceName": "contracts/NFT.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -515,7 +515,7 @@
       ]
     },
     "/Users/arnonate/code/haikoin/contracts/Market.sol": {
-      "lastModificationDate": 1639284668772,
+      "lastModificationDate": 1640730431810,
       "contentHash": "a031fad26ba20ffb231dcc0f4952591e",
       "sourceName": "contracts/Market.sol",
       "solcConfig": {

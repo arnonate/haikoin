@@ -13,11 +13,6 @@ const CreateSVGDisplay = ({
   svgRef,
 }) => (
   <div className="display">
-    {console.log({
-      fontFamily,
-      fontWeight,
-      fontFace: Fonts[fontFamily][fontWeight],
-    })}
     <svg
       className="haikoin"
       preserveAspectRatio="xMinYMin meet"

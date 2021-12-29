@@ -75,43 +75,52 @@ export default function Create() {
   }
 
   async function handleCreate() {
-    var canvas = document.createElement("canvas");
-    canvas.width = 2000;
-    canvas.height = 2000;
-    var ctx = canvas.getContext("2d");
-
-    //display image
-    var img = document.createElement("img");
-    img.setAttribute(
-      "src",
-      "data:image/svg+xml;base64," + btoa(svgRef.current.outerHTML)
-    );
-
-    img.onload = function () {
-      ctx.drawImage(img, 0, 0);
-
-      console.log(canvas.toDataURL("image/png"));
-    };
-
     const { name, description } = formData;
 
-    /* first, upload to IPFS */
-    const data = JSON.stringify({
-      name,
-      description,
-      // image,
-    });
+    const getImageFromSvg = () =>
+      new Promise((resolve, reject) => {
+        const canvas = document.createElement("canvas");
+        canvas.width = 2000;
+        canvas.height = 2000;
+        const canvasContext = canvas.getContext("2d");
+        const tempImage = document.createElement("img");
+
+        tempImage.onload = () => {
+          canvasContext.drawImage(tempImage, 0, 0);
+
+          // Create ipfs package
+          const ipfsPackage = JSON.stringify({
+            name,
+            description,
+            image: canvas.toDataURL("image/png"),
+          });
+
+          resolve(ipfsPackage);
+        };
+
+        tempImage.onError = reject;
+        tempImage.setAttribute(
+          "src",
+          "data:image/svg+xml;base64," + btoa(svgRef.current.outerHTML)
+        );
+      });
 
     try {
       setUploadingToIPFS(true);
-      // const added = await client.add(data);
+
+      const ipfsPackage = await getImageFromSvg();
+      const ipfsResult = await client.add(ipfsPackage);
+
       setUploadingToIPFS(false);
 
-      // const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      console.log({ ipfsResult });
+
+      const ipfsPath = `https://ipfs.infura.io/ipfs/${ipfsResult.path}`;
 
       /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
-      // createSale(url);
-      // console.log({ url });
+      // createSale(ipfsPath);
+
+      console.log({ ipfsPath });
     } catch (error) {
       console.log("Error uploading file: ", error);
     }
