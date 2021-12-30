@@ -21,8 +21,9 @@ const CreateSVGDisplay = ({
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        <style>
-          {`
+        {fontFamily && fontWeight ? (
+          <style>
+            {`
             @font-face {
               font-family: ${fontFamily};
               src: url(data:application/x-font-woff;charset=utf-8;base64,${Fonts[fontFamily][fontWeight]});
@@ -30,7 +31,8 @@ const CreateSVGDisplay = ({
               font-weight: ${fontWeight};
             }
           `}
-        </style>
+          </style>
+        ) : null}
       </defs>
 
       <rect width="100%" height="100%" fill={backgroundColor} />
