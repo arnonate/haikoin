@@ -6,10 +6,10 @@ import { useRef, useState } from "react";
 import Web3Modal from "web3modal";
 import { MagicWandIcon } from "@radix-ui/react-icons";
 
-import HaikoinMarketContract from "../artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
+// import HaikoinMarketContract from "../artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
 import HaikoinTokenContract from "../artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
 
-import { Config, Theme } from "../utils";
+import { Config, Routes, Theme } from "../utils";
 import {
   CreateForm,
   CreateSVGDisplay,
@@ -23,42 +23,47 @@ const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 export default function Create() {
   const svgRef = useRef(null);
-
-  const [uploadingToIPFS, setUploadingToIPFS] = useState(false);
-  const [formData, setFormData] = useState({
+  const defaultFormData = {
     backgroundColor: Theme.colors.ui.dark,
     description: "",
     firstLine: "",
     fontFamily: "Hahmlet",
     fontWeight: "Regular",
     name: "",
-    price: "",
     secondLine: "",
     textColor: Theme.colors.text.default,
     thirdLine: "",
-  });
+  };
+  const testFormData = {
+    backgroundColor: Theme.colors.ui.dark,
+    description: "Test description.",
+    firstLine: "First line of Haikoin",
+    fontFamily: "Hahmlet",
+    fontWeight: "Regular",
+    name: "Test Name",
+    secondLine: "Second line of the Haikoin",
+    textColor: Theme.colors.text.default,
+    thirdLine: "Third line of Haikoin",
+  };
+
+  const [uploadingToIPFS, setUploadingToIPFS] = useState(false);
+  const [formData, setFormData] = useState(testFormData);
 
   const router = useRouter();
 
-  async function mintToken(url) {
+  async function mintHaikoin(url) {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
 
-    // Create Haikoin token!
-    const contract = new ethers.Contract(
+    const haikoinTokenContract = new ethers.Contract(
       Config.haikoinTokenContractAddress,
       HaikoinTokenContract.abi,
       signer
     );
-    const createTokenResponse = await contract.createToken(url);
-    const response = await createTokenResponse.wait();
-    const tokenCreatedEvent = response.events[0];
-    const tokenCreatedValue = tokenCreatedEvent.args[2];
-    const tokenAddress = tokenCreatedValue.toNumber();
-
-    console.log({ tokenAddress });
+    const createTokenResponse = await haikoinTokenContract.mintHaikoin(url);
+    await createTokenResponse.wait();
 
     // TODO move listing logic to single Haikoin view
     // const price = ethers.utils.parseUnits(formData.price, "ether");
@@ -80,15 +85,14 @@ export default function Create() {
     // );
     // await transaction.wait();
 
-    // TODO push to single token view with address
-    // router.push("/haikoin/${tokenAddress");
+    router.push(Routes.haikoins);
   }
 
   async function handleCreate() {
     const { name, description } = formData;
 
-    const getImageFromSvg = () =>
-      new Promise((resolve, reject) => {
+    function getImageFromSvg() {
+      return new Promise((resolve, reject) => {
         const canvas = document.createElement("canvas");
         canvas.width = 2000;
         canvas.height = 2000;
@@ -98,7 +102,6 @@ export default function Create() {
         tempImage.onload = () => {
           canvasContext.drawImage(tempImage, 0, 0);
 
-          // Create ipfs package
           const IPFSPackage = JSON.stringify({
             name,
             description,
@@ -114,6 +117,7 @@ export default function Create() {
           "data:image/svg+xml;base64," + btoa(svgRef.current.outerHTML)
         );
       });
+    }
 
     try {
       setUploadingToIPFS(true);
@@ -124,10 +128,9 @@ export default function Create() {
       setUploadingToIPFS(false);
 
       const ipfsPath = `https://ipfs.infura.io/ipfs/${IPFSResult.path}`;
-      console.log({ ipfsPath });
 
       // After file is uploaded to IPFS, pass the URL to save it on Polygon
-      mintToken(ipfsPath);
+      mintHaikoin(ipfsPath);
     } catch (error) {
       console.log("Error uploading file: ", error);
     }
@@ -136,7 +139,6 @@ export default function Create() {
   return (
     <StyledContainer>
       <CreateContainer.GlobalStyles />
-
       <Head>
         <title>Create | {Config.siteTitle}</title>
       </Head>

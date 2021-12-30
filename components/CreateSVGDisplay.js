@@ -25,7 +25,7 @@ const CreateSVGDisplay = ({
           {`
             @font-face {
               font-family: ${fontFamily};
-              src: url(data:application/font-woff;charset=utf-8;base64,${Fonts[fontFamily][fontWeight]});
+              src: url(data:application/x-font-woff;charset=utf-8;base64,${Fonts[fontFamily][fontWeight]});
               font-style: normal;
               font-weight: ${fontWeight};
             }

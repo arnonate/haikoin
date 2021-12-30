@@ -15,7 +15,7 @@ async function main() {
 
   // Deploy token contract
   const tokenFactory = await hre.ethers.getContractFactory("HaikoinToken");
-  const tokenContract = await tokenFactory.deploy(marketContract.address);
+  const tokenContract = await tokenFactory.deploy();
   await tokenContract.deployed();
 
   console.log("HaikoinToken deployed to:", tokenContract.address);

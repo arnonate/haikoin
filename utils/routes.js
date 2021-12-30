@@ -1,8 +1,8 @@
 const routes = {
   home: "/",
-  dashboard: "/dashboard",
+  haikoins: "/haikoins",
   create: "/create",
-  mine: "/mine",
+  market: "/market",
 };
 
 export default routes;

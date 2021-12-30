@@ -50,12 +50,12 @@ function Haikoin({ Component, pageProps }) {
                   <MagicWandIcon /> Create
                 </a>
               </ActiveLink>
-              <ActiveLink activeClassName="active" href={Routes.mine}>
+              <ActiveLink activeClassName="active" href={Routes.haikoins}>
                 <a>
                   <StackIcon /> My Haikoins
                 </a>
               </ActiveLink>
-              <ActiveLink activeClassName="active" href={Routes.dashboard}>
+              <ActiveLink activeClassName="active" href={Routes.market}>
                 <a>
                   <LightningBoltIcon /> Explore
                 </a>
