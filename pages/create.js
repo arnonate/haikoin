@@ -19,7 +19,7 @@ import {
 } from "../components";
 import CreateContainer from "../components/StyledCreate";
 
-const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
+const ipfsClient = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 export default function Create() {
   const svgRef = useRef(null);
@@ -85,8 +85,6 @@ export default function Create() {
     //   }
     // );
     // await transaction.wait();
-
-    router.push(Routes.haikoins);
   }
 
   async function handleCreate() {
@@ -103,13 +101,13 @@ export default function Create() {
         tempImage.onload = () => {
           canvasContext.drawImage(tempImage, 0, 0);
 
-          const IPFSPackage = JSON.stringify({
+          const ipfsPackage = JSON.stringify({
             name,
             description,
             image: canvas.toDataURL("image/png"),
           });
 
-          resolve(IPFSPackage);
+          resolve(ipfsPackage);
         };
 
         tempImage.onError = reject;
@@ -123,15 +121,18 @@ export default function Create() {
     try {
       setUploadingToIPFS(true);
 
-      const IPFSPackage = await getImageFromSvg();
-      const IPFSResult = await client.add(IPFSPackage);
+      // Convert SVG to PNG image and upload to IPFS
+      const ipfsPackage = await getImageFromSvg();
+      const ipfsResult = await ipfsClient.add(ipfsPackage);
 
       setUploadingToIPFS(false);
 
-      const ipfsPath = `https://ipfs.infura.io/ipfs/${IPFSResult.path}`;
+      const ipfsPath = `https://ipfs.infura.io/ipfs/${ipfsResult.path}`;
 
       // After file is uploaded to IPFS, pass the URL to save it on Polygon
-      mintHaikoin(ipfsPath);
+      await mintHaikoin(ipfsPath);
+
+      router.push(Routes.haikoins);
     } catch (error) {
       console.log("Error uploading file: ", error);
     }

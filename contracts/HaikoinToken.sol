@@ -12,8 +12,8 @@ contract HaikoinToken is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable {
 
   Counters.Counter private _tokenIds;
 
+  // TODO should Market own the created Toknens initially?
   // address contractAddress;
-
   // constructor(address marketplaceAddress) ERC721("Haikoins", "HAIK") {
   //   contractAddress = marketplaceAddress;
   // }
@@ -56,16 +56,16 @@ contract HaikoinToken is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable {
     _burn(tokenId);
   }
 
-  function fetchHaikoinsOwned(address _owner)
+  function fetchHaikoinsOwned(address owner)
     external
     view
     returns (string[] memory)
   {
-    uint256 tokenCount = balanceOf(_owner);
+    uint256 tokenCount = balanceOf(owner);
     string[] memory tokenIds = new string[](tokenCount);
 
     for (uint256 i = 0; i < tokenCount; i++) {
-      tokenIds[i] = tokenURI(tokenOfOwnerByIndex(_owner, i));
+      tokenIds[i] = tokenURI(tokenOfOwnerByIndex(owner, i));
     }
 
     return tokenIds;
