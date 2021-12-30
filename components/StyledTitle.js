@@ -10,7 +10,7 @@ const StyledTitle = styled.div`
 
   h1 {
     align-items: center;
-    color: ${(props) => props.theme.colors.text.white};
+    color: ${(props) => props.theme.colors.text.default};
     display: flex;
     font-size: ${(props) => props.theme.font.size.md};
     font-weight: ${(props) => props.theme.font.weight.bold};
