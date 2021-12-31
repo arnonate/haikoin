@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ethers } from "ethers";
 import axios from "axios";
 import Web3Modal from "web3modal";
-import { StackIcon } from "@radix-ui/react-icons";
+import { LayersIcon } from "@radix-ui/react-icons";
 
 import { Config, Routes } from "utils";
 import { Button, Grid, Container, Title } from "components";
@@ -58,7 +58,7 @@ export default function DashboardView() {
       </Head>
 
       <Title>
-        <StackIcon />
+        <LayersIcon />
         <h1>Dashboard</h1>
       </Title>
 

@@ -10,6 +10,7 @@ import GlobalStyles from "./GlobalStyles";
 import Grid from "./system/Grid";
 import Header from "./Header";
 import Title from "./system/Title";
+import Token from "./Token";
 
 export {
   ActiveLink,
@@ -24,4 +25,5 @@ export {
   Grid,
   Header,
   Title,
+  Token,
 };

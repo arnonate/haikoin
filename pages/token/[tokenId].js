@@ -6,10 +6,14 @@ import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import axios from "axios";
 import Web3Modal from "web3modal";
-import { ChevronRightIcon, StackIcon } from "@radix-ui/react-icons";
+import {
+  ChevronRightIcon,
+  LayersIcon,
+  LightningBoltIcon,
+} from "@radix-ui/react-icons";
 
 import { Config, Routes } from "utils";
-import { Container, Title } from "components";
+import { Button, Container, Title, Token } from "components";
 
 // import HaikoinMarketContract from "artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
 import HaikoinTokenContract from "artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
@@ -18,7 +22,12 @@ export default function TokenView() {
   const router = useRouter();
   const { tokenId } = router.query;
   const [haikoin, setHaikoin] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [listingEnabled, setListingEnabled] = useState(false);
+  const [listingPrice, setListingPrice] = useState("");
+  const [hasFormErrors, setHasFormErrors] = useState(false);
+
+  console.log({ listingPrice });
 
   useEffect(() => {
     async function fetchHaikoin() {
@@ -45,8 +54,6 @@ export default function TokenView() {
     fetchHaikoin();
   }, [tokenId]);
 
-  if (isLoading) return <p>Loading...</p>;
-
   return (
     <Container>
       <Head>
@@ -56,7 +63,7 @@ export default function TokenView() {
       </Head>
 
       <Title>
-        <StackIcon />
+        <LayersIcon />
         <Link href={Routes.dashboard}>
           <a>Dashboard</a>
         </Link>
@@ -64,30 +71,83 @@ export default function TokenView() {
         <h1>{haikoin.name ?? "Token not found"}</h1>
       </Title>
 
-      <div>
-        <h2>{haikoin.name ?? "Token not found"}</h2>
-
-        <div className="cards">
-          {haikoin.image ? (
-            <div className="card">
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div>
+          {haikoin ? (
+            <Token>
               <div>
-                <p>Name: {haikoin.name}</p>
-                <p>Description: {haikoin.description}</p>
-                <p>TokenURI: {haikoin.uri}</p>
+                {haikoin.image ? (
+                  <div className="image">
+                    <Image
+                      alt={haikoin.name}
+                      src={haikoin.image}
+                      width={2000}
+                      height={2000}
+                    />
+                  </div>
+                ) : null}
               </div>
 
-              <Image
-                alt={haikoin.name}
-                src={haikoin.image}
-                width={500}
-                height={500}
-              />
-            </div>
+              <div>
+                <p className="name">{haikoin.name}</p>
+                <p className="description">{haikoin.description}</p>
+                <p className="stats">
+                  {`Haikoin #${haikoin.id}`} |{" "}
+                  <a href={haikoin.uri} target="_blank" rel="noreferrer">
+                    View on IPFS
+                  </a>
+                </p>
+
+                <div className="list">
+                  {listingEnabled ? (
+                    <>
+                      <label htmlFor="price">
+                        Price (in ETH)
+                        {hasFormErrors ? (
+                          <span className="error">
+                            Price must be a valid number greater than 0.
+                          </span>
+                        ) : null}
+                      </label>
+                      <input
+                        id="price"
+                        name="price"
+                        min="0.0001"
+                        onChange={(event) =>
+                          setListingPrice(event.target.value)
+                        }
+                        placeholder="0.25"
+                        type="number"
+                        step="0.0001"
+                      />
+
+                      <Button onClick={() => console.log("Listed!")}>
+                        List for Sale!
+                      </Button>
+                      <Button
+                        variant="link"
+                        onClick={() => setListingEnabled(false)}
+                      >
+                        Cancel
+                      </Button>
+                    </>
+                  ) : (
+                    <Button onClick={() => setListingEnabled(true)}>
+                      <LightningBoltIcon />
+                      <span>List on Market</span>
+                      <LightningBoltIcon style={{ transform: "scaleX(-1)" }} />
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </Token>
           ) : (
             <p>Haikoin not found!</p>
           )}
         </div>
-      </div>
+      )}
     </Container>
   );
 }

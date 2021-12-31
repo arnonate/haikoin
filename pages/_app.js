@@ -5,7 +5,7 @@ import {
   LightningBoltIcon,
   HomeIcon,
   MagicWandIcon,
-  StackIcon,
+  LayersIcon,
 } from "@radix-ui/react-icons";
 
 import { Theme, Routes, Config } from "utils";
@@ -51,7 +51,7 @@ function Haikoin({ Component, pageProps }) {
             </ActiveLink>
             <ActiveLink activeClassName="active" href={Routes.dashboard}>
               <a>
-                <StackIcon /> Dashboard
+                <LayersIcon /> Dashboard
               </a>
             </ActiveLink>
             <ActiveLink activeClassName="active" href={Routes.explore}>

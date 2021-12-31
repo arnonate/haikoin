@@ -3,12 +3,39 @@ import styled from "styled-components";
 import FlexBox from "./system/FlexBox";
 
 const Token = styled(FlexBox)`
-  .form {
-    display: flex;
+  flex-direction: row;
+
+  @media (max-width: 960px) {
     flex-direction: column;
+  }
+
+  color: ${(props) => props.theme.colors.text.white};
+
+  .image {
+    margin-bottom: ${(props) => props.theme.rhythm};
+
+    img {
+      border-radius: ${(props) => props.theme.borderRadius.large};
+    }
+  }
+
+  .name {
+    font-size: ${(props) => props.theme.font.size.xl};
+    line-height: ${(props) => props.theme.lineHeight.xl};
+    margin: 0;
+  }
+
+  .description {
+    font-style: italic;
+    line-height: ${(props) => props.theme.lineHeight.md};
+  }
+
+  .list {
+    padding-top: ${(props) => props.theme.rhythm};
 
     label {
       align-items: flex-end;
+      color: ${(props) => props.theme.colors.text.default};
       display: flex;
       font-weight: ${(props) => props.theme.font.weight.bold};
       justify-content: space-between;
@@ -24,8 +51,7 @@ const Token = styled(FlexBox)`
       }
     }
 
-    input + label,
-    textarea + label {
+    input + label {
       margin-top: ${(props) => props.theme.rhythm};
     }
 
@@ -34,14 +60,14 @@ const Token = styled(FlexBox)`
       font-size: ${(props) => props.theme.font.size.sm};
     }
 
-    input,
-    textarea {
+    input {
       background-color: ${(props) => props.theme.colors.ui.transparent};
       border: 0;
       border-radius: ${(props) => props.theme.borderRadius.default};
       color: ${(props) => props.theme.colors.text.white};
       font-family: ${(props) => props.theme.font.family};
       font-size: 16px;
+      margin-bottom: ${(props) => props.theme.rhythm};
       padding: ${(props) => props.theme.rhythm};
       min-width: 100%;
 
@@ -49,72 +75,6 @@ const Token = styled(FlexBox)`
         color: ${(props) => props.theme.colors.text.default};
         opacity: 0.3;
       }
-    }
-
-    .fields {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      padding: ${(props) => `calc(${props.theme.rhythm}/2) 0`};
-
-      & > * {
-        width: ${(props) => `calc(50% - ${props.theme.rhythm})`};
-      }
-
-      .control {
-        align-items: center;
-        display: flex;
-        justify-content: left;
-
-        label {
-          line-height: 1;
-          padding: ${(props) => `${props.theme.rhythm} 0`};
-          padding-right: ${(props) => `calc(${props.theme.rhythm}/2)`};
-          width: auto;
-        }
-
-        .color {
-          border: ${(props) => `2px solid ${props.theme.colors.text.white}`};
-          border-radius: ${(props) => props.theme.borderRadius.small};
-          cursor: pointer;
-          height: ${(props) => props.theme.rhythm};
-          width: ${(props) => `calc(${props.theme.rhythm}*2)`};
-        }
-
-        .select {
-          align-items: center;
-          background-color: ${(props) => props.theme.colors.ui.transparent};
-          border: 0;
-          border-radius: ${(props) => props.theme.borderRadius.default};
-          color: ${(props) => props.theme.colors.text.white};
-          cursor: pointer;
-          display: flex;
-          font-size: 16px;
-          justify-content: space-between;
-          padding: ${(props) => `calc(${props.theme.rhythm}/2)`};
-          width: 160px;
-
-          svg {
-            height: ${(props) => props.theme.font.size.md};
-            margin-left: ${(props) => `calc(${props.theme.rhythm}/4)`};
-            width: ${(props) => props.theme.font.size.md};
-          }
-        }
-      }
-    }
-
-    .mintButton {
-      padding-top: ${(props) => props.theme.rhythm};
-    }
-  }
-
-  .display {
-    position: relative;
-    padding-bottom: ${(props) => props.theme.rhythm};
-
-    svg {
-      border-radius: ${(props) => props.theme.borderRadius.large};
     }
   }
 `;

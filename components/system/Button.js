@@ -1,23 +1,33 @@
 import styled from "styled-components";
 
+import { Theme } from "utils";
+
+function getBackgroundColor(variant) {
+  return variant === "link" ? "transparent" : Theme.colors.text.link;
+}
+
+function getColor(variant) {
+  return variant === "link"
+    ? Theme.colors.text.default
+    : Theme.colors.text.white;
+}
+
+function getSize(size) {
+  return size === "small" ? Theme.font.size.sm : Theme.font.size.md;
+}
+
 const Button = styled.button`
   align-items: center;
-  background-color: ${(props) => props.theme.colors.text.link};
+  background-color: ${(props) => getBackgroundColor(props.variant)};
   border: 0;
   border-radius: ${(props) => props.theme.borderRadius.default};
-  color: ${(props) => props.theme.colors.text.white};
+  color: ${(props) => getColor(props.variant)};
   cursor: pointer;
   display: inline-flex;
   font-family: ${(props) => props.theme.font.family};
-  font-size: ${(props) =>
-    props.size === "small"
-      ? props.theme.font.size.sm
-      : props.theme.font.size.md};
+  font-size: ${(props) => getSize(props.size)};
   line-height: 1;
-  padding: ${(props) =>
-    props.size === "small"
-      ? props.theme.font.size.sm
-      : props.theme.font.size.md};
+  padding: ${(props) => getSize(props.size)};
 
   & > * + * {
     margin-left: ${(props) => `calc(${props.theme.rhythm}/2)`};
@@ -29,6 +39,10 @@ const Button = styled.button`
 
   &:active {
     box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.3);
+  }
+
+  & + & {
+    margin-left: ${(props) => props.theme.rhythm};
   }
 `;
 
