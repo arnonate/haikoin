@@ -5,18 +5,11 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "hardhat/console.sol";
 
 contract HaikoinToken is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable {
   using Counters for Counters.Counter;
 
   Counters.Counter private _tokenIds;
-
-  // TODO should Market own the created Toknens initially?
-  // address contractAddress;
-  // constructor(address marketplaceAddress) ERC721("Haikoins", "HAIK") {
-  //   contractAddress = marketplaceAddress;
-  // }
 
   constructor() ERC721("Haikoins", "HAIK") {}
 
@@ -51,27 +44,8 @@ contract HaikoinToken is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable {
     return super.tokenURI(tokenId);
   }
 
-  // Methods
-  function burnHaikoin(uint256 tokenId) public {
-    _burn(tokenId);
-  }
-
-  function fetchHaikoinsOwned(address owner)
-    external
-    view
-    returns (string[] memory)
-  {
-    uint256 tokenCount = balanceOf(owner);
-    string[] memory tokenIds = new string[](tokenCount);
-
-    for (uint256 i = 0; i < tokenCount; i++) {
-      tokenIds[i] = tokenURI(tokenOfOwnerByIndex(owner, i));
-    }
-
-    return tokenIds;
-  }
-
-  function mintHaikoin(string memory ipfsURI) public payable {
+  // Custom Methods
+  function mint(string memory ipfsURI) external {
     _tokenIds.increment();
     uint256 newTokenId = _tokenIds.current();
 
@@ -79,7 +53,26 @@ contract HaikoinToken is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable {
     _setTokenURI(newTokenId, ipfsURI);
   }
 
-  function transferHaikoin(
+  function burn(uint256 tokenId) external {
+    _burn(tokenId);
+  }
+
+  function fetchOne(uint256 tokenId) external view returns (string memory) {
+    string memory URI = tokenURI(tokenId);
+    return URI;
+  }
+
+  function fetchAll(address owner) external view returns (string[] memory) {
+    uint256 tokenCount = balanceOf(owner);
+    string[] memory URIs = new string[](tokenCount);
+
+    for (uint256 i = 0; i < tokenCount; i++) {
+      URIs[i] = tokenURI(tokenOfOwnerByIndex(owner, i));
+    }
+    return URIs;
+  }
+
+  function transfer(
     address from,
     address to,
     uint256 tokenId
