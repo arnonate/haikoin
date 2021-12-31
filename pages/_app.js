@@ -6,6 +6,8 @@ import {
   HomeIcon,
   MagicWandIcon,
   LayersIcon,
+  TwitterLogoIcon,
+  GitHubLogoIcon,
 } from "@radix-ui/react-icons";
 
 import { Theme, Routes, Config } from "utils";
@@ -70,9 +72,19 @@ function Haikoin({ Component, pageProps }) {
       <footer>
         <Footer>
           <Container>
-            &copy;2022 <a href="https://twitter.com/HaikoinNFT">@HaikoinNFT</a>{" "}
-            | An <a href="#0">elemint</a> project | Powered by{" "}
-            <a href="https://polygon.technology/">Polygon</a>
+            <p>
+              &copy;2022{" "}
+              <a href="https://twitter.com/HaikoinNFT">@HaikoinNFT</a> &middot;
+              An <a href="#0">elemint</a> project &middot; Powered by{" "}
+              <a href="https://polygon.technology/">Polygon</a>,{" "}
+              <a href="https://vercel.com/">Vercel</a> &{" "}
+              <a href="https://www.radix-ui.com/">Radix</a>
+            </p>
+
+            <div className="channels">
+              <TwitterLogoIcon />
+              <GitHubLogoIcon />
+            </div>
           </Container>
         </Footer>
       </footer>

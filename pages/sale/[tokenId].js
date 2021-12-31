@@ -27,6 +27,8 @@ export default function TokenView() {
   const [listingPrice, setListingPrice] = useState("");
   const [hasFormErrors, setHasFormErrors] = useState(false);
 
+  console.log({ listingPrice });
+
   useEffect(() => {
     async function fetchHaikoin() {
       const web3Modal = new Web3Modal({
@@ -56,7 +58,7 @@ export default function TokenView() {
     <Container>
       <Head>
         <title>
-          {haikoin.name ?? "Token not found"} | {Config.siteTitle}
+          {haikoin.name ?? ""} | {Config.siteTitle}
         </title>
       </Head>
 
@@ -66,7 +68,7 @@ export default function TokenView() {
           <a>Dashboard</a>
         </Link>
         <ChevronRightIcon />
-        <h1>{haikoin.name ?? "Token not found"}</h1>
+        <h1>{haikoin.name ?? ""}</h1>
       </Title>
 
       {isLoading ? (
@@ -92,7 +94,7 @@ export default function TokenView() {
                 <p className="name">{haikoin.name}</p>
                 <p className="description">{haikoin.description}</p>
                 <p className="stats">
-                  {`Haikoin #${haikoin.id}`} |{" "}
+                  {`Haikoin #${haikoin.id}`} &middot;{" "}
                   <a href={haikoin.uri} target="_blank" rel="noreferrer">
                     View on IPFS
                   </a>

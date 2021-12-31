@@ -25,12 +25,7 @@ const Grid = styled.div`
       font-size: ${(props) => props.theme.font.size.md};
       font-weight: ${(props) => props.theme.font.weight.bold};
       line-height: ${(props) => props.theme.lineHeight.md};
-      margin: ${(props) => `0 0 calc(${props.theme.rhythm}/4)`};
-    }
-
-    p {
-      font-weight: ${(props) => props.theme.font.weight.light};
-      margin: ${(props) => `0 0 ${props.theme.rhythm}`};
+      margin: ${(props) => `0 0 ${props.theme.rhythm} 0`};
     }
 
     a.token-image {

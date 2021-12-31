@@ -29,6 +29,7 @@ const Header = styled(Container)`
 
       &.active {
         color: ${(props) => props.theme.colors.text.white};
+        font-weight: ${(props) => props.theme.font.weight.bold};
 
         svg {
           color: ${(props) => props.theme.colors.text.default};

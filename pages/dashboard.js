@@ -70,7 +70,6 @@ export default function DashboardView() {
             createdHaikoins.map((haikoin) => (
               <div className="token" key={haikoin.id}>
                 <h3>{haikoin.name}</h3>
-                <p>{haikoin.description}</p>
 
                 <Link href={Routes.token(haikoin.id)}>
                   <a className="token-image">

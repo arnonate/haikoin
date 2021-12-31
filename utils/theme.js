@@ -7,15 +7,15 @@ const theme = {
   colors: {
     ui: {
       dark: `#050505`,
-      default: `#0c0c0c`,
-      highlight: `#7126bc`,
+      default: `#0c0b0c`,
+      highlight: `#D127DB`,
       transparent: `rgba(0, 0, 0, 0.6)`,
     },
     text: {
-      default: `#8f75bd`,
+      default: `#b16ce5`,
       error: `#d127da`,
-      highlight: `#7126BC`,
-      link: `#d127da`,
+      link: `#D127DB`,
+      placeholder: "",
       white: `#fafafa`,
     },
   },
