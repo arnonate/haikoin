@@ -1,7 +1,8 @@
 import Head from "next/head";
+import { HomeIcon } from "@radix-ui/react-icons";
 
 import { Config } from "utils";
-import { StyledContainer } from "components";
+import { StyledContainer, StyledTitle } from "components";
 
 export default function Home() {
   return (
@@ -11,9 +12,13 @@ export default function Home() {
         <meta name="description" content={Config.siteDescription} />
       </Head>
 
-      <main>
-        <StyledContainer>Home</StyledContainer>
-      </main>
+      <StyledContainer>
+        <StyledTitle>
+          <h1>
+            <HomeIcon /> Home
+          </h1>
+        </StyledTitle>
+      </StyledContainer>
     </>
   );
 }

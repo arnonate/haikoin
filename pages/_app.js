@@ -64,7 +64,9 @@ function Haikoin({ Component, pageProps }) {
           </StyledHeader>
         </header>
 
-        <Component {...pageProps} />
+        <main>
+          <Component {...pageProps} />
+        </main>
 
         <footer>
           <StyledFooter>

@@ -14,17 +14,8 @@ import { StyledContainer, StyledTitle } from "components";
 import HaikoinTokenContract from "artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
 
 export default function Dashboard() {
-  const [walletAddress, setWalletAddress] = useState(null);
   const [createdHaikoins, setCreatedHaikoins] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (window.ethereum.selectedAddress) {
-      setWalletAddress(window.ethereum.selectedAddress);
-    } else {
-      setWalletAddress(null);
-    }
-  }, []);
 
   useEffect(() => {
     async function fetchHaikoins() {
@@ -42,7 +33,7 @@ export default function Dashboard() {
       );
 
       const ownedHaikoinIds = await haikoinTokenContract.fetchOwnedTokenIds(
-        walletAddress
+        window.ethereum.selectedAddress
       );
 
       const haikoinsData = await Promise.all(
@@ -58,7 +49,7 @@ export default function Dashboard() {
     }
 
     fetchHaikoins();
-  }, [walletAddress]);
+  }, []);
 
   if (isLoading) return <p>Loading...</p>;
 

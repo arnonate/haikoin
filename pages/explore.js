@@ -1,17 +1,10 @@
-import { useState, useEffect } from "react";
 import Head from "next/head";
-import Image from "next/image";
-import { ethers } from "ethers";
-import axios from "axios";
-import Web3Modal from "web3modal";
+import { LightningBoltIcon } from "@radix-ui/react-icons";
 
-import HaikoinMarketContract from "artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
-import HaikoinTokenContract from "artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
-
-import { StyledContainer } from "components";
 import { Config } from "utils";
+import { StyledContainer, StyledTitle } from "components";
 
-export default function Explore() {
+export default function Home() {
   return (
     <>
       <Head>
@@ -19,9 +12,13 @@ export default function Explore() {
         <meta name="description" content="Explore the Haikoin marketplace!" />
       </Head>
 
-      <main>
-        <StyledContainer>Home</StyledContainer>
-      </main>
+      <StyledContainer>
+        <StyledTitle>
+          <h1>
+            <LightningBoltIcon /> Explore
+          </h1>
+        </StyledTitle>
+      </StyledContainer>
     </>
   );
 }
