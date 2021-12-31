@@ -12,7 +12,7 @@ import { StyledContainer, StyledTitle } from "components";
 // import HaikoinMarketContract from "artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
 import HaikoinTokenContract from "artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
 
-export default function CreatorDashboard() {
+export default function Token() {
   const router = useRouter();
   const { tokenId } = router.query;
   const [haikoin, setHaikoin] = useState([]);

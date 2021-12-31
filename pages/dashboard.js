@@ -13,7 +13,7 @@ import { StyledContainer, StyledTitle } from "components";
 // import HaikoinMarketContract from "artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
 import HaikoinTokenContract from "artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
 
-export default function CreatorDashboard() {
+export default function Dashboard() {
   const [walletAddress, setWalletAddress] = useState(null);
   const [createdHaikoins, setCreatedHaikoins] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
