@@ -6,22 +6,23 @@ import { useRef, useState } from "react";
 import Web3Modal from "web3modal";
 import { MagicWandIcon } from "@radix-ui/react-icons";
 
-// import HaikoinMarketContract from "../artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
-import HaikoinTokenContract from "../artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
+// import HaikoinMarketContract from "artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
+import HaikoinTokenContract from "artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
 
-import { Config, Routes, Theme } from "../utils";
+import { Config, Routes, Theme } from "utils";
 import {
   CreateForm,
   CreateSVGDisplay,
   StyledContainer,
   StyledCreate,
   StyledTitle,
-} from "../components";
-import CreateContainer from "../components/StyledCreate";
+} from "components";
+import CreateContainer from "components/StyledCreate";
 
 const ipfsClient = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 export default function Create() {
+  const router = useRouter();
   const svgRef = useRef(null);
   const defaultFormData = {
     backgroundColor: Theme.colors.ui.dark,
@@ -50,8 +51,6 @@ export default function Create() {
   const [uploadingToIPFS, setUploadingToIPFS] = useState(false);
   const [formData, setFormData] = useState(testFormData);
 
-  const router = useRouter();
-
   async function mintHaikoin(url) {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -63,7 +62,7 @@ export default function Create() {
       HaikoinTokenContract.abi,
       signer
     );
-    const createTokenResponse = await haikoinTokenContract.mintHaikoin(url);
+    const createTokenResponse = await haikoinTokenContract.mint(url);
     await createTokenResponse.wait();
 
     // TODO move listing logic to single Haikoin view
@@ -132,7 +131,7 @@ export default function Create() {
       // After file is uploaded to IPFS, pass the URL to save it on Polygon
       await mintHaikoin(ipfsPath);
 
-      router.push(Routes.haikoins);
+      router.push(Routes.dashboard);
     } catch (error) {
       console.log("Error uploading file: ", error);
     }

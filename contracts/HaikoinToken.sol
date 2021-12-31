@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT OR Apache-2.0
 pragma solidity ^0.8.3;
 
-import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract HaikoinToken is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable {
+contract HaikoinToken is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   using Counters for Counters.Counter;
 
   Counters.Counter private _tokenIds;
@@ -57,19 +57,18 @@ contract HaikoinToken is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable {
     _burn(tokenId);
   }
 
-  function fetchOne(uint256 tokenId) external view returns (string memory) {
-    string memory URI = tokenURI(tokenId);
-    return URI;
-  }
-
-  function fetchAll(address owner) external view returns (string[] memory) {
+  function fetchOwnedTokenIds(address owner)
+    external
+    view
+    returns (uint256[] memory)
+  {
     uint256 tokenCount = balanceOf(owner);
-    string[] memory URIs = new string[](tokenCount);
+    uint256[] memory tokenIds = new uint256[](tokenCount);
 
     for (uint256 i = 0; i < tokenCount; i++) {
-      URIs[i] = tokenURI(tokenOfOwnerByIndex(owner, i));
+      tokenIds[i] = tokenOfOwnerByIndex(owner, i);
     }
-    return URIs;
+    return tokenIds;
   }
 
   function transfer(

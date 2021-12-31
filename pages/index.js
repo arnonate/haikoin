@@ -6,10 +6,10 @@ import axios from "axios";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 
-import HaikoinMarketContract from "../artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
-import HaikoinTokenContract from "../artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
+import HaikoinMarketContract from "artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
+import HaikoinTokenContract from "artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
 
-import { Config } from "../utils";
+import { Config } from "utils";
 
 const Main = styled.main`
   color: ${({ theme }) => theme.colors.text.primary};

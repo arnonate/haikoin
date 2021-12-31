@@ -8,14 +8,14 @@ import {
   StackIcon,
 } from "@radix-ui/react-icons";
 
-import { Theme, Routes, Config } from "../utils";
+import { Theme, Routes, Config } from "utils";
 import {
   ActiveLink,
   GlobalStyles,
   StyledContainer,
   StyledFooter,
   StyledHeader,
-} from "../components";
+} from "components";
 
 function Haikoin({ Component, pageProps }) {
   return (

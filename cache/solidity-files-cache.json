@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/arnonate/code/haikoin/contracts/HaikoinMarket.sol": {
-      "lastModificationDate": 1640798952889,
-      "contentHash": "d53e337b6cdcda75c004fc7626aed9d8",
+      "lastModificationDate": 1640907356933,
+      "contentHash": "1f0d905fb61fdccd52faaf6f31e028d0",
       "sourceName": "contracts/HaikoinMarket.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -476,8 +476,8 @@
       ]
     },
     "/Users/arnonate/code/haikoin/contracts/HaikoinToken.sol": {
-      "lastModificationDate": 1640891951919,
-      "contentHash": "ec0ee992a39df757c98598537f962bc8",
+      "lastModificationDate": 1640932186547,
+      "contentHash": "fefdef3bafdfdcf144f69348a7e43999",
       "sourceName": "contracts/HaikoinToken.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -503,11 +503,10 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts/utils/Counters.sol",
-        "@openzeppelin/contracts/access/Ownable.sol",
         "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
         "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
-        "hardhat/console.sol"
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/utils/Counters.sol"
       ],
       "versionPragmas": [
         "^0.8.3"
