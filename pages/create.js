@@ -151,13 +151,14 @@ export default function Create() {
       </StyledTitle>
 
       <StyledCreate>
+        <CreateSVGDisplay {...formData} svgRef={svgRef} />
+
         <CreateForm
           formData={formData}
           setFormData={setFormData}
           onCreateClick={handleCreate}
           uploadingToIPFS={uploadingToIPFS}
         />
-        <CreateSVGDisplay {...formData} svgRef={svgRef} />
       </StyledCreate>
     </StyledContainer>
   );

@@ -3,6 +3,10 @@ import { createGlobalStyle } from "styled-components";
 import { Theme } from "../utils";
 
 const GlobalStyles = createGlobalStyle`
+  html {
+    font-size: 16px;
+  }
+
   html,
   body {
     height: 100%;
@@ -14,6 +18,7 @@ const GlobalStyles = createGlobalStyle`
     background-color: ${Theme.colors.ui.default};
     color: ${Theme.colors.text.default};
     font-family: ${Theme.font.family};
+    font-kerning: normal;
     font-size: ${Theme.font.size.md};
     font-weight: ${Theme.font.weight.medium};
     line-height: ${Theme.lineHeight.md};

@@ -2,10 +2,19 @@ import styled, { createGlobalStyle } from "styled-components";
 
 const CreateContainer = styled.div`
   display: flex;
+  flex-direction: row-reverse;
   justify-content: space-between;
 
   & > * {
     width: ${(props) => `calc(50% - ${props.theme.rhythm})`};
+  }
+
+  @media (max-width: 960px) {
+    flex-direction: column;
+
+    & > * {
+      width: 100%;
+    }
   }
 
   .form {
@@ -116,6 +125,7 @@ const CreateContainer = styled.div`
 
   .display {
     position: relative;
+    padding-bottom: ${(props) => props.theme.rhythm};
 
     svg {
       border-radius: ${(props) => props.theme.borderRadius.large};

@@ -1,5 +1,3 @@
-const base = `16`;
-
 const theme = {
   borderRadius: {
     small: `4px`,
@@ -8,17 +6,17 @@ const theme = {
   },
   colors: {
     ui: {
-      dark: `#07040d`,
-      default: `#120A20`,
-      highlight: `#7126BC`,
+      dark: `#050505`,
+      default: `#0c0c0c`,
+      highlight: `#7126bc`,
       transparent: `rgba(0, 0, 0, 0.6)`,
     },
     text: {
       default: `#8f75bd`,
-      error: `#DA26DE`,
+      error: `#d127da`,
       highlight: `#7126BC`,
-      link: `#DA26DE`,
-      white: `#FFFFFF`,
+      link: `#d127da`,
+      white: `#fafafa`,
     },
   },
   dimensions: {
@@ -27,10 +25,10 @@ const theme = {
   font: {
     family: `'Work Sans', sans-serif`,
     size: {
-      sm: base * 0.618 + "px", // Based off golden ratio 1.618
-      md: base + "px",
-      lg: base * 1.618 + "px",
-      xl: base * 1.618 * 2 + "px",
+      sm: "0.618rem",
+      md: "1rem",
+      lg: "1.618rem",
+      xl: "2.618rem",
     },
     weight: {
       medium: `500`,
@@ -39,11 +37,11 @@ const theme = {
     },
   },
   lineHeight: {
-    md: base * 1.618 + "px",
-    lg: base * 1.618 * 2 + "px",
-    xl: base * 1.618 * 3 + "px",
+    md: "1.618rem",
+    lg: "2.618rem",
+    xl: "3.618rem",
   },
-  rhythm: base * 1.618 + "px",
+  rhythm: "1.618rem",
 };
 
 export default theme;

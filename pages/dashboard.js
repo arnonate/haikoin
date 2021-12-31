@@ -86,7 +86,7 @@ export default function Dashboard() {
 
                 <Link href={Routes.token(haikoin.id)}>
                   <a className="token-view">
-                    <Button>View</Button>
+                    <Button>View / Sell</Button>
                   </a>
                 </Link>
               </div>
