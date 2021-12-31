@@ -2,8 +2,20 @@ import styled from "styled-components";
 
 const StyledGrid = styled.div`
   display: grid;
-  gap: ${(props) => `calc(${props.theme.rhythm}*2) ${props.theme.rhythm}`};
+  gap: ${(props) => `calc(${props.theme.rhythm}*2)`};
   grid: auto-flow / repeat(4, 1fr);
+
+  @media (max-width: 1240px) {
+    grid: auto-flow / repeat(3, 1fr);
+  }
+
+  @media (max-width: 960px) {
+    grid: auto-flow / repeat(2, 1fr);
+  }
+
+  @media (max-width: 680px) {
+    grid: auto-flow / repeat(1, 1fr);
+  }
 
   .token {
     color: ${(props) => props.theme.colors.text.white};
@@ -21,8 +33,12 @@ const StyledGrid = styled.div`
       margin: ${(props) => `0 0 ${props.theme.rhythm}`};
     }
 
-    .token-image {
-      border-radius: ${(props) => props.theme.borderRadius.large};
+    a.token-image {
+      display: block;
+
+      img {
+        border-radius: ${(props) => props.theme.borderRadius.large};
+      }
 
       &:hover {
         opacity: 0.7;
@@ -30,7 +46,11 @@ const StyledGrid = styled.div`
     }
 
     .token-view {
-      margin: ${(props) => `${props.theme.rhythm} 0`};
+      display: block;
+
+      button {
+        margin: ${(props) => `${props.theme.rhythm} auto`};
+      }
     }
   }
 `;

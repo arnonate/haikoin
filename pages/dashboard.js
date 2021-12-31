@@ -74,9 +74,8 @@ export default function Dashboard() {
                 <p>{haikoin.description}</p>
 
                 <Link href={Routes.token(haikoin.id)}>
-                  <a>
+                  <a className="token-image">
                     <Image
-                      className="token-image"
                       alt={haikoin.name}
                       src={haikoin.image}
                       width={500}
@@ -86,8 +85,8 @@ export default function Dashboard() {
                 </Link>
 
                 <Link href={Routes.token(haikoin.id)}>
-                  <a>
-                    <Button className="token-view">View</Button>
+                  <a className="token-view">
+                    <Button>View</Button>
                   </a>
                 </Link>
               </div>

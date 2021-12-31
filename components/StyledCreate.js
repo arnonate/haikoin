@@ -118,7 +118,6 @@ const CreateContainer = styled.div`
     position: relative;
 
     svg {
-      border: ${(props) => `8px solid ${props.theme.colors.ui.transparent}`};
       border-radius: ${(props) => props.theme.borderRadius.large};
     }
   }
