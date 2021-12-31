@@ -13,15 +13,15 @@ import { Config, Routes, Theme } from "utils";
 import {
   CreateForm,
   CreateSVGDisplay,
-  StyledContainer,
-  StyledCreate,
-  StyledTitle,
+  Container,
+  Create,
+  Title,
 } from "components";
-import CreateContainer from "components/StyledCreate";
+import CreateContainer from "components/Create";
 
 const ipfsClient = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
-export default function Create() {
+export default function CreateView() {
   const router = useRouter();
   const svgRef = useRef(null);
   const defaultFormData = {
@@ -64,26 +64,6 @@ export default function Create() {
     );
     const createTokenResponse = await haikoinTokenContract.mint(url);
     await createTokenResponse.wait();
-
-    // TODO move listing logic to single Haikoin view
-    // const price = ethers.utils.parseUnits(formData.price, "ether");
-    // contract = new ethers.Contract(
-    //   Config.haikoinMarketContractAddress,
-    //   HaikoinMarketContract.abi,
-    //   signer
-    // );
-    // let listingPrice = await contract.getListingPrice();
-    // listingPrice = listingPrice.toString();
-
-    // transaction = await contract.createMarketItem(
-    //   Config.haikoinTokenContractAddress,
-    //   tokenId,
-    //   price,
-    //   {
-    //     value: listingPrice,
-    //   }
-    // );
-    // await transaction.wait();
   }
 
   async function handleCreate() {
@@ -138,19 +118,18 @@ export default function Create() {
   }
 
   return (
-    <StyledContainer>
+    <Container>
       <CreateContainer.GlobalStyles />
       <Head>
         <title>Create | {Config.siteTitle}</title>
       </Head>
 
-      <StyledTitle>
-        <h1>
-          <MagicWandIcon /> Create
-        </h1>
-      </StyledTitle>
+      <Title>
+        <MagicWandIcon />
+        <h1>Create</h1>
+      </Title>
 
-      <StyledCreate>
+      <Create>
         <CreateSVGDisplay {...formData} svgRef={svgRef} />
 
         <CreateForm
@@ -159,7 +138,7 @@ export default function Create() {
           onCreateClick={handleCreate}
           uploadingToIPFS={uploadingToIPFS}
         />
-      </StyledCreate>
-    </StyledContainer>
+      </Create>
+    </Container>
   );
 }

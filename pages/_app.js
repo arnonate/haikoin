@@ -12,9 +12,9 @@ import { Theme, Routes, Config } from "utils";
 import {
   ActiveLink,
   GlobalStyles,
-  StyledContainer,
-  StyledFooter,
-  StyledHeader,
+  Container,
+  Footer,
+  Header,
 } from "components";
 
 function Haikoin({ Component, pageProps }) {
@@ -23,7 +23,7 @@ function Haikoin({ Component, pageProps }) {
       <GlobalStyles />
 
       <header>
-        <StyledHeader>
+        <Header>
           <div className="logo">
             <Link href={Routes.home}>
               <a>
@@ -60,7 +60,7 @@ function Haikoin({ Component, pageProps }) {
               </a>
             </ActiveLink>
           </nav>
-        </StyledHeader>
+        </Header>
       </header>
 
       <main>
@@ -68,13 +68,13 @@ function Haikoin({ Component, pageProps }) {
       </main>
 
       <footer>
-        <StyledFooter>
-          <StyledContainer>
+        <Footer>
+          <Container>
             &copy;2022 <a href="https://twitter.com/HaikoinNFT">@HaikoinNFT</a>{" "}
             | An <a href="#0">elemint</a> project | Powered by{" "}
             <a href="https://polygon.technology/">Polygon</a>
-          </StyledContainer>
-        </StyledFooter>
+          </Container>
+        </Footer>
       </footer>
     </ThemeProvider>
   );

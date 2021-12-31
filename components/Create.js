@@ -1,22 +1,8 @@
 import styled, { createGlobalStyle } from "styled-components";
 
-const CreateContainer = styled.div`
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
+import FlexBox from "./system/FlexBox";
 
-  & > * {
-    width: ${(props) => `calc(50% - ${props.theme.rhythm})`};
-  }
-
-  @media (max-width: 960px) {
-    flex-direction: column;
-
-    & > * {
-      width: 100%;
-    }
-  }
-
+const Create = styled(FlexBox)`
   .form {
     display: flex;
     flex-direction: column;
@@ -182,6 +168,6 @@ const CreateGlobalStyles = createGlobalStyle`
   }
 `;
 
-CreateContainer.GlobalStyles = CreateGlobalStyles;
+Create.GlobalStyles = CreateGlobalStyles;
 
-export default CreateContainer;
+export default Create;

@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import axios from "axios";
 import Web3Modal from "web3modal";
+import { ChevronRightIcon, StackIcon } from "@radix-ui/react-icons";
 
-import { Config } from "utils";
-import { StyledContainer, StyledTitle } from "components";
+import { Config, Routes } from "utils";
+import { Container, Title } from "components";
 
 // import HaikoinMarketContract from "artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
 import HaikoinTokenContract from "artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
 
-export default function Token() {
+export default function TokenView() {
   const router = useRouter();
   const { tokenId } = router.query;
   const [haikoin, setHaikoin] = useState([]);
@@ -46,19 +48,24 @@ export default function Token() {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <StyledContainer>
+    <Container>
       <Head>
         <title>
-          {haikoin.name ?? "Not found"} | {Config.siteTitle}
+          {haikoin.name ?? "Token not found"} | {Config.siteTitle}
         </title>
       </Head>
 
-      <StyledTitle>
-        <h1>{haikoin.name ?? "Not found"}</h1>
-      </StyledTitle>
+      <Title>
+        <StackIcon />
+        <Link href={Routes.dashboard}>
+          <a>Dashboard</a>
+        </Link>
+        <ChevronRightIcon />
+        <h1>{haikoin.name ?? "Token not found"}</h1>
+      </Title>
 
       <div>
-        <h2>{haikoin.name ?? "Not found"}</h2>
+        <h2>{haikoin.name ?? "Token not found"}</h2>
 
         <div className="cards">
           {haikoin.image ? (
@@ -81,6 +88,6 @@ export default function Token() {
           )}
         </div>
       </div>
-    </StyledContainer>
+    </Container>
   );
 }

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import { StyledContainer } from ".";
+import { Container } from "components";
 
-const StyledHeader = styled(StyledContainer)`
+const Header = styled(Container)`
   align-items: center;
   display: flex;
   justify-content: space-between;
@@ -23,12 +23,16 @@ const StyledHeader = styled(StyledContainer)`
       font-weight: ${(props) => props.theme.font.weight.bold};
       padding: 0 9px 9px;
 
-      &.active {
-        color: ${(props) => props.theme.colors.text.white};
-      }
-
       svg {
         margin-right: ${(props) => props.theme.font.size.sm};
+      }
+
+      &.active {
+        color: ${(props) => props.theme.colors.text.white};
+
+        svg {
+          color: ${(props) => props.theme.colors.text.default};
+        }
       }
     }
 
@@ -38,4 +42,4 @@ const StyledHeader = styled(StyledContainer)`
   }
 `;
 
-export default StyledHeader;
+export default Header;

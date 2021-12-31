@@ -7,12 +7,12 @@ import axios from "axios";
 import Web3Modal from "web3modal";
 
 import { Config } from "utils";
-import { StyledContainer, StyledTitle } from "components";
+import { Container, Title } from "components";
 
 // import HaikoinMarketContract from "artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
 import HaikoinTokenContract from "artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
 
-export default function Sale() {
+export default function SaleView() {
   const router = useRouter();
   const { tokenId } = router.query;
   const [haikoin, setHaikoin] = useState([]);
@@ -46,16 +46,16 @@ export default function Sale() {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <StyledContainer>
+    <Container>
       <Head>
         <title>
           {haikoin.name ?? "Not found"} | {Config.siteTitle}
         </title>
       </Head>
 
-      <StyledTitle>
+      <Title>
         <h1>{haikoin.name ?? "Not found"}</h1>
-      </StyledTitle>
+      </Title>
 
       <div>
         <h2>{haikoin.name ?? "Not found"}</h2>
@@ -81,6 +81,6 @@ export default function Sale() {
           )}
         </div>
       </div>
-    </StyledContainer>
+    </Container>
   );
 }

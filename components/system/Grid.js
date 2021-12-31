@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledGrid = styled.div`
+const Grid = styled.div`
   display: grid;
   gap: ${(props) => `calc(${props.theme.rhythm}*2)`};
   grid: auto-flow / repeat(4, 1fr);
@@ -55,4 +55,4 @@ const StyledGrid = styled.div`
   }
 `;
 
-export default StyledGrid;
+export default Grid;

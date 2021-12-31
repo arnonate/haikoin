@@ -8,14 +8,14 @@ import Web3Modal from "web3modal";
 import { StackIcon } from "@radix-ui/react-icons";
 
 import { Config, Routes } from "utils";
-import { Button, StyledGrid, StyledContainer, StyledTitle } from "components";
+import { Button, Grid, Container, Title } from "components";
 
 // import HaikoinMarketContract from "artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
 import HaikoinTokenContract from "artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
 
-export default function Dashboard() {
+export default function DashboardView() {
   const [createdHaikoins, setCreatedHaikoins] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchHaikoins() {
@@ -51,22 +51,21 @@ export default function Dashboard() {
     fetchHaikoins();
   }, []);
 
-  if (isLoading) return <p>Loading...</p>;
-
   return (
-    <StyledContainer>
+    <Container>
       <Head>
         <title>Dashboard | {Config.siteTitle}</title>
       </Head>
 
-      <StyledTitle>
-        <h1>
-          <StackIcon /> Dashboard
-        </h1>
-      </StyledTitle>
+      <Title>
+        <StackIcon />
+        <h1>Dashboard</h1>
+      </Title>
 
-      <div>
-        <StyledGrid>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <Grid>
           {createdHaikoins.length > 0 ? (
             createdHaikoins.map((haikoin) => (
               <div className="token" key={haikoin.id}>
@@ -94,8 +93,8 @@ export default function Dashboard() {
           ) : (
             <p>No Haikoins created yet!</p>
           )}
-        </StyledGrid>
-      </div>
-    </StyledContainer>
+        </Grid>
+      )}
+    </Container>
   );
 }

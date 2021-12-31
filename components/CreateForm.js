@@ -9,7 +9,7 @@ import {
 } from "@radix-ui/react-icons";
 
 import { Fonts } from "../utils";
-import { Button } from "../components";
+import { Button } from "components";
 
 const CreateForm = ({
   formData,
