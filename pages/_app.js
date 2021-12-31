@@ -19,67 +19,64 @@ import {
 
 function Haikoin({ Component, pageProps }) {
   return (
-    <>
+    <ThemeProvider theme={Theme}>
       <GlobalStyles />
 
-      <ThemeProvider theme={Theme}>
-        <header>
-          <StyledHeader>
-            <div className="logo">
-              <Link href={Routes.home}>
-                <a>
-                  <Image
-                    alt={Config.siteTitle}
-                    src="/logo.png"
-                    width={1200}
-                    height={150}
-                    priority
-                  />
-                </a>
-              </Link>
-            </div>
+      <header>
+        <StyledHeader>
+          <div className="logo">
+            <Link href={Routes.home}>
+              <a>
+                <Image
+                  alt={Config.siteTitle}
+                  src="/logo.png"
+                  width={1200}
+                  height={150}
+                  priority
+                />
+              </a>
+            </Link>
+          </div>
 
-            <nav className="nav">
-              <ActiveLink activeClassName="active" href={Routes.home}>
-                <a>
-                  <HomeIcon /> Home
-                </a>
-              </ActiveLink>
-              <ActiveLink activeClassName="active" href={Routes.create}>
-                <a>
-                  <MagicWandIcon /> Create
-                </a>
-              </ActiveLink>
-              <ActiveLink activeClassName="active" href={Routes.dashboard}>
-                <a>
-                  <StackIcon /> Dashboard
-                </a>
-              </ActiveLink>
-              <ActiveLink activeClassName="active" href={Routes.explore}>
-                <a>
-                  <LightningBoltIcon /> Explore
-                </a>
-              </ActiveLink>
-            </nav>
-          </StyledHeader>
-        </header>
+          <nav className="nav">
+            <ActiveLink activeClassName="active" href={Routes.home}>
+              <a>
+                <HomeIcon /> Home
+              </a>
+            </ActiveLink>
+            <ActiveLink activeClassName="active" href={Routes.create}>
+              <a>
+                <MagicWandIcon /> Create
+              </a>
+            </ActiveLink>
+            <ActiveLink activeClassName="active" href={Routes.dashboard}>
+              <a>
+                <StackIcon /> Dashboard
+              </a>
+            </ActiveLink>
+            <ActiveLink activeClassName="active" href={Routes.explore}>
+              <a>
+                <LightningBoltIcon /> Explore
+              </a>
+            </ActiveLink>
+          </nav>
+        </StyledHeader>
+      </header>
 
-        <main>
-          <Component {...pageProps} />
-        </main>
+      <main>
+        <Component {...pageProps} />
+      </main>
 
-        <footer>
-          <StyledFooter>
-            <StyledContainer>
-              &copy;2022{" "}
-              <a href="https://twitter.com/HaikoinNFT">@HaikoinNFT</a> | An{" "}
-              <a href="#0">elemint</a> project | Powered by{" "}
-              <a href="https://polygon.technology/">Polygon</a>
-            </StyledContainer>
-          </StyledFooter>
-        </footer>
-      </ThemeProvider>
-    </>
+      <footer>
+        <StyledFooter>
+          <StyledContainer>
+            &copy;2022 <a href="https://twitter.com/HaikoinNFT">@HaikoinNFT</a>{" "}
+            | An <a href="#0">elemint</a> project | Powered by{" "}
+            <a href="https://polygon.technology/">Polygon</a>
+          </StyledContainer>
+        </StyledFooter>
+      </footer>
+    </ThemeProvider>
   );
 }
 

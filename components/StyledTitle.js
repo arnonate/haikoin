@@ -15,7 +15,6 @@ const StyledTitle = styled.div`
     font-size: ${(props) => props.theme.font.size.md};
     font-weight: ${(props) => props.theme.font.weight.bold};
     line-height: 1;
-    text-transform: uppercase;
 
     svg {
       height: ${(props) => props.theme.font.size.md};

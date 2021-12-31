@@ -3,6 +3,7 @@ import Button from "./Button";
 import CreateForm from "./CreateForm";
 import CreateSVGDisplay from "./CreateSVGDisplay";
 import GlobalStyles from "./GlobalStyles";
+import StyledGrid from "./StyledGrid";
 import StyledContainer from "./StyledContainer";
 import StyledCreate from "./StyledCreate";
 import StyledFooter from "./StyledFooter";
@@ -15,6 +16,7 @@ export {
   CreateForm,
   CreateSVGDisplay,
   GlobalStyles,
+  StyledGrid,
   StyledContainer,
   StyledCreate,
   StyledFooter,

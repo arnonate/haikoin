@@ -7,12 +7,17 @@ const Button = styled.button`
   border-radius: ${(props) => props.theme.borderRadius.default};
   color: ${(props) => props.theme.colors.text.white};
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   font-family: ${(props) => props.theme.font.family};
-  font-size: ${(props) => props.theme.font.size.md};
+  font-size: ${(props) =>
+    props.size === "small"
+      ? props.theme.font.size.sm
+      : props.theme.font.size.md};
   line-height: 1;
-  padding: ${(props) => props.theme.rhythm};
-  text-transform: uppercase;
+  padding: ${(props) =>
+    props.size === "small"
+      ? props.theme.font.size.sm
+      : props.theme.font.size.md};
 
   & > * + * {
     margin-left: ${(props) => `calc(${props.theme.rhythm}/2)`};

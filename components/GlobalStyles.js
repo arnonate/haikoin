@@ -5,6 +5,7 @@ import { Theme } from "../utils";
 const GlobalStyles = createGlobalStyle`
   html,
   body {
+    height: 100%;
     padding: 0;
     margin: 0;
   }
@@ -16,7 +17,21 @@ const GlobalStyles = createGlobalStyle`
     font-size: ${Theme.font.size.md};
     font-weight: ${Theme.font.weight.medium};
     line-height: ${Theme.lineHeight.md};
-    min-height: 100vh;
+  }
+
+  body > div#__next {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100%;
+  }
+
+  header, footer {
+    height: auto;
+  }
+
+  main {
+    flex: 1;
   }
 
   a {

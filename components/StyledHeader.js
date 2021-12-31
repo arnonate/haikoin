@@ -22,7 +22,6 @@ const StyledHeader = styled(StyledContainer)`
       display: inline-flex;
       font-weight: ${(props) => props.theme.font.weight.bold};
       padding: 0 9px 9px;
-      text-transform: uppercase;
 
       &.active {
         color: ${(props) => props.theme.colors.text.white};

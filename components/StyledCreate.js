@@ -19,7 +19,6 @@ const CreateContainer = styled.div`
       justify-content: space-between;
       line-height: 1;
       padding-bottom: ${(props) => `calc(${props.theme.rhythm}/2)`};
-      text-transform: uppercase;
       width: 100%;
 
       span {

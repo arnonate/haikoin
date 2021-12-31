@@ -8,7 +8,7 @@ import Web3Modal from "web3modal";
 import { StackIcon } from "@radix-ui/react-icons";
 
 import { Config, Routes } from "utils";
-import { StyledContainer, StyledTitle } from "components";
+import { Button, StyledGrid, StyledContainer, StyledTitle } from "components";
 
 // import HaikoinMarketContract from "artifacts/contracts/HaikoinMarket.sol/HaikoinMarket.json";
 import HaikoinTokenContract from "artifacts/contracts/HaikoinToken.sol/HaikoinToken.json";
@@ -66,31 +66,36 @@ export default function Dashboard() {
       </StyledTitle>
 
       <div>
-        <h2>Items Created</h2>
-
-        <div className="cards">
+        <StyledGrid>
           {createdHaikoins.length > 0 ? (
             createdHaikoins.map((haikoin) => (
-              <Link href={Routes.token(haikoin.id)} key={haikoin.id}>
-                <a className="card">
-                  <Image
-                    alt={haikoin.name}
-                    src={haikoin.image}
-                    width={500}
-                    height={500}
-                  />
-                  <div>
-                    <p>Name: {haikoin.name}</p>
-                    <p>Description: {haikoin.description}</p>
-                    <p>TokenURI: {haikoin.uri}</p>
-                  </div>
-                </a>
-              </Link>
+              <div className="token" key={haikoin.id}>
+                <h3>{haikoin.name}</h3>
+                <p>{haikoin.description}</p>
+
+                <Link href={Routes.token(haikoin.id)}>
+                  <a>
+                    <Image
+                      className="token-image"
+                      alt={haikoin.name}
+                      src={haikoin.image}
+                      width={500}
+                      height={500}
+                    />
+                  </a>
+                </Link>
+
+                <Link href={Routes.token(haikoin.id)}>
+                  <a>
+                    <Button className="token-view">View</Button>
+                  </a>
+                </Link>
+              </div>
             ))
           ) : (
             <p>No Haikoins created yet!</p>
           )}
-        </div>
+        </StyledGrid>
       </div>
     </StyledContainer>
   );
